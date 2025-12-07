@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', function () {
+    return view('index');
+});
+
 Route::get('/login', function () {
     return view('login');
 });
@@ -27,5 +31,13 @@ Route::get('/address', function () {
 
 Route::get('/sell', function () {
     return view('sell');
+});
+
+Route::get('/mypage', function () {
+    return view('mypage');
+});
+
+Route::get('/mypage/profile', function () {
+    return view('profile');
 });
 

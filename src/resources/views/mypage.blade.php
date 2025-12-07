@@ -9,11 +9,14 @@
   <form action="/register" class="login-form">
     <h1 class="content-title">プロフィール設定</h1>
     <!-- プロフィール画像 -->
-    <div class="form-input">
-      
-    <!-- ★★ -->
-
-
+    <div class="form-input profile-box">
+      <div class="profile-thumb">
+        <img id="profilePreview" src="" alt="" />
+      </div>
+      <label for="profile_image" class="profile-btn">
+        画像を選択する
+      </label>
+      <input id="profile_image" type="file" name="profile_image" accept="image/*" class="profile-file">
     </div>
     <!-- ユーザー名 -->
     <div class="form-input">

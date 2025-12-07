@@ -1,1 +1,1 @@
-# frea-market-app
+# flea-market-app

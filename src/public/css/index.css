@@ -1,0 +1,48 @@
+.content {
+  padding: 60px 15px;
+  max-width: 1512px;
+  justify-content: center;
+}
+
+/* ここからタブ */
+.form-change {
+  display: flex;
+  gap: 40px;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 40px;
+}
+.form-change a {
+  color: #666;
+  text-decoration: none;
+}
+.form-change a.active {
+  color: #ff0000;
+  font-weight: bold;
+}
+.form-change__recommend{
+  margin-left: 100px;
+}
+/* ここまでタブ */
+
+.item-group{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+}
+.item-group__row{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.item-group__img{
+  height: 150px;
+  background: #e0e0e0;
+  border: none;
+  width: 100%;
+}
+.item-group__name{
+  height: 30px;
+  margin: 0 auto;
+  border: none;
+  width: 100%;
+}

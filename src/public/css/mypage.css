@@ -4,38 +4,68 @@
   max-width: 1512px;
 }
 
+/* start　プロフィール画像 */
+.profile-box {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+.profile-thumb {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: #e0e0e0;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.profile-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.profile-file {
+  display: none;
+}
+.profile-btn {
+  display: inline-block;
+  padding: 6px 14px;
+  font-size: 12px;
+  border: 1px solid #ff5555;
+  color: #ff5555;
+  border-radius: 4px;
+  background: #fff;
+  cursor: pointer;
+}
+/* end プロフィール画像 */
+
+
 .login-form {
   margin: 0 auto;
   width: 500px;
 }
-
 .content-title {
   font-size: 28px;
   text-align: center;
 }
-
 .form-input {
   width: 100%;
   margin-bottom: 20px;
 }
-
 .form__label--item {
   display: block;
   font-weight: bold;
   margin-bottom: 6px;
 }
-
 .form__input--item {
   width: 100%;
   height: 35px;
 }
-
 .form__button {
   margin-top: 20px;
   width: 100%;
   display: inline-block;
 }
-
 .form__button-submit {
   width: 100%;
   height: 40px;
@@ -45,7 +75,6 @@
   font-weight: bold;
   margin-bottom: 20px;
 }
-
 .form__button-tran {
   font-size: 14px;
   display: block;
