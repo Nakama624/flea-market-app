@@ -4,7 +4,7 @@
   max-width: 1540px;
 }
 
-.login-form {
+.sell-form {
   margin: 0 auto;
   width: 500px;
 }
@@ -13,6 +13,8 @@
   font-size: 28px;
   text-align: center;
 }
+
+
 
 .form-input {
   width: 100%;
@@ -25,10 +27,55 @@
   margin-bottom: 6px;
 }
 
+
+
+
 .form__input--item {
   width: 100%;
   height: 35px;
 }
+
+
+/* 画像選択 */
+.profile-thumb {
+  width: 100%;
+  height: 80px;
+  background: #e0e0e0;
+  overflow: hidden;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.profile-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.profile-file {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.item-img__btn {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  z-index: 2;
+  display: inline-block;
+  padding: 6px 14px;
+  font-size: 12px;
+  border: 1px solid #ff5555;
+  color: #ff5555;
+  border-radius: 4px;
+  background: #fff;
+  cursor: pointer;
+}
+/* 画像選択ここまで */
 
 .form__button {
   margin-top: 40px;
@@ -46,11 +93,6 @@
   margin-bottom: 20px;
 }
 
-/* 画像 */
-.form__input--item-img{
-  width: 100%;
-  height: 100px;
-}
 
 .content-subtitle{
   color:#5F5F5F;
@@ -81,16 +123,10 @@
   display: none;
 }
 
-/* 選択時のスタイル変更 */
-.category-item input:checked+span,
-.category-item input:checked {
+/* ★選択されているlabel自体をスタイル変更 */
+.category-item:has(input:checked) {
   background-color: #E64C4C;
-  color: white;
-}
-
-.category-item input:checked~* {
-  background-color: #E64C4C;
-  color: white;
+  color: #fff;
 }
 
 .form__textarea--item{

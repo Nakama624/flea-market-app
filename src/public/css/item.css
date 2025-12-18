@@ -93,12 +93,27 @@
   margin-top: 0px;
 }
 
-.item-categories,
 .item-condition {
   font-size: 16px;
-  margin-top: 0px;
+
 }
 /* 商品説明＆商品情報 ここまで */
+
+/* チップ */
+.category-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+.item-categories {
+  padding: 3px 8px;
+  border: 2px solid #E64C4C;
+  border-radius: 20px;
+  color: #E64C4C;
+  cursor: pointer;
+  font-size: 10px;
+  transition: 0.2s;
+}
+/* チップここまで */
 
 /* コメント */
 .item-comment{
@@ -129,7 +144,6 @@
 }
 .comments{
   width: 100%;
-  background: #e0e0e0;
   height: 30px;
   border: none;
   border-radius: 3px;

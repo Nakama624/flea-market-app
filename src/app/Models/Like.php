@@ -10,8 +10,16 @@ class Like extends Model
   use HasFactory;
 
   protected $fillable = [
-  'item_id',
-  'user_id',
-
+    'item_id',
+    'user_id',
   ];
+
+  // リレーション
+  public function user(){
+    return $this->belongsTo(User::class);
+  }
+
+  public function item(){
+    return $this->belongsTo(Item::class);
+  }
 }

@@ -12,7 +12,7 @@
     <!-- 一段目 -->
     <div class="left-row">
       <div class="item-img__inner">
-        <img class="item-img" src="{{ $item->img }}" alt="商品画像" />
+        <img class="item-img" src="{{ asset('storage/items/' . $item->item_img) }}" alt="商品画像" />
       </div>
       <div class="left-row__name-price">
         <h1 class="item-name">{{ $item->name }}</h1>

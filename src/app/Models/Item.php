@@ -14,17 +14,34 @@ class Item extends Model
     'price',
     'brand',
     'description',
-    'img',
+    'item_img',
     'condition_id',
     'sell_user_id',
   ];
+
+   // リレーション
   public function condition()
   {
-    return $this->belongsTo(condition::class);
+    return $this->belongsTo(Condition::class);
   }
 
-  // リレーション
-  public function user(){
-    return $this -> belongsTo('App\Models\User');
+  public function seller(){
+    return $this -> belongsTo(User::class, 'sell_user_id');
   }
+
+  public function purchaseItem(){
+      return $this->hasOne(Purchase::class, 'item_id');
+  }
+
+  public function categories(){
+    return $this->belongsToMany(Category::class, 'categories_items');
+  }
+
+  public function comments(){
+    return $this->hasMany(Comment::class);
+  }
+
+  public function likedUsers(){
+    return $this->belongsToMany(User::class, 'likes')->withTimestamps();
+}
 }

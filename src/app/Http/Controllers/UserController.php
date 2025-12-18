@@ -36,16 +36,17 @@ class UserController extends Controller
   // マイページを表示
   public function mypage(Request $request){
     $user = Auth::user();
-    $items = Item::all();
     $page = $request->query('page');
 
-    // 出品
-    if ($page === 'sale') {
-      $items = Item::all();
-      // いったんすべて表示★
-      $soldItemIds = Purchase::pluck('item_id')->toArray();
+    $items = collect();
+    $soldItemIds = [];
 
-      return view('mypage', compact('user', 'items','soldItemIds'));
+    // 出品
+    if ($page === 'sell') {
+
+      $items = $user->sellItems()
+        ->with(['seller', 'purchaseItem'])
+        ->get();
 
     // 購入品
     }elseif ($page === 'buy'){
@@ -54,21 +55,18 @@ class UserController extends Controller
         ->pluck('item_id')
         ->toArray();
 
-      $items = Item::whereIn('id', $boughtItemIds)->get();
+      $items = Item::whereIn('id', $boughtItemIds)
+        ->with(['seller', 'purchaseItem'])
+        ->get();
 
       // SOLD
       $soldItemIds = $boughtItemIds;
 
-      return view('mypage', compact('user','items','soldItemIds'));
     }else{
       $items = Item::all();
       // いったんすべて表示★
       $soldItemIds = Purchase::pluck('item_id')->toArray();
-
-      return view('mypage', compact('user', 'items','soldItemIds'));
     }
-
+    return view('mypage', compact('user', 'items', 'soldItemIds'));
   }
-
-
 }

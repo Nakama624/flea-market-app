@@ -48,10 +48,10 @@ class PurchaseController extends Controller
     $user = Auth::user();
 
     $purchaseData = $request->only([
-        'delivery_postcode',
-        'delivery_address',
-        'delivery_building',
-        'payment_id'
+      'delivery_postcode',
+      'delivery_address',
+      'delivery_building',
+      'payment_id'
     ]);
 
     $purchaseData['item_id'] = $item->id;

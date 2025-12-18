@@ -47,7 +47,16 @@ class User extends Authenticatable
   ];
 
   // リレーション
-  public function items(){
-    return $this -> hasMany('App\Models\Item');
+  public function sellItems(){
+    return $this->hasMany(Item::class, 'sell_user_id');
+  }
+
+  public function comments(){
+    return $this->hasMany(Comment::class);
+  }
+
+  public function likedItems(){
+    return $this->belongsToMany(Item::class, 'likes')->withTimestamps();
   }
 }
+

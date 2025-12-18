@@ -8,7 +8,7 @@
 <div class="content">
   <!-- 商品画像(左) -->
   <div class="left">
-    <img class="item-img" src="{{ $item->img }}" alt="商品画像" />
+    <img class="item-img" src="{{ asset('storage/items/' . $item->item_img) }}" alt="商品画像" />
   </div>
 
   <!-- 商品詳細(右) -->
@@ -20,13 +20,22 @@
     <!-- アイコン -->
     <div class="icon-group">
       <div class="icon__likes">
-        <img class="icon" src="{{ asset('images/likes_default.png') }}" alt="いいねデフォルト" />
-        <!-- <img class="icon" src="{{ asset('images/likes_pink.png') }}" alt="いいね" /> -->
-        <p class="icon__count">12</p>
+        <form action="/items/{{ $item->id }}/like" method="POST">
+          @csrf
+          <button type="submit" style="background:none;border:none;padding:0;cursor:pointer;">
+            @if($item->is_liked) <!-- いいね押下 -->
+              <img class="icon" src="{{ asset('images/likes_pink.png') }}" alt="いいね" />
+            @else <!-- いいね未押下 -->
+              <img class="icon" src="{{ asset('images/likes_default.png') }}" alt="いいねデフォルト" />
+            @endif
+          </button>
+        </form>
+        <!-- カウント -->
+        <p>{{ $item->liked_users_count }}</p>
       </div>
       <div class="icon__comment">
         <img class="icon" src="{{ asset('images/comment.png') }}" alt="コメント" />
-        <p class="icon__count">10</p>
+        <p class="icon__count">{{ $item->comments->count() }}</p>
       </div>
     </div>
 
@@ -43,36 +52,42 @@
       <h2 class="item-info">商品の情報</h2>
       <div class="item-info__group">
         <p class="item-info__title">カテゴリー</p>
-        <p class="item-categories">要修正</p>
+        <div class="category-wrapper">
+          @foreach ($item->categories as $category)
+          <p class="item-categories">{{ $category->category_name }}</p>
+          @endforeach
+        </div>
       </div>
       <div class="item-info__group">
         <p class="item-info__title">商品の状態</p>
-        <p class="item-condition">{{ $item->condition_id }}</p>
+        <p class="item-condition">{{ $item->condition->condition_name }}</p>
       </div>
     </div>
 
     <div class="sub-content">
-      <h3 class="item-comment">コメント(数)</h3>
+      <h3 class="item-comment">コメント({{ $item->comments->count() }})</h3>
 
       <!-- プロフィール画像 -->
+      @foreach ($item->comments as $comment)
       <!-- コメントの数を繰り返す -->
       <div class="profile-box">
         <div class="profile-thumb">
-          <img id="profilePreview" src="" alt="" />
+          <img id="profilePreview" src="{{ asset('storage/' . $user->profile_img) }}" alt="" />
         </div>
         <!-- ユーザー名 -->
         <span class="profile-name">
-          ユーザー名を表示
+          {{ $comment->user->name }}
         </span>
       </div>
       <!-- コメント表示 -->
-      <p class="comments"></p>
-      <!-- ここまで繰り返す     -->
+      <p class="comments">{{ $comment->comment }}</p>
+      @endforeach
 
       <!-- コメント入力 -->
-      <form action="" class="form-comment">
+      <form action="/item/{{ $item->id }}" class="form-comment" method="post">
+        @csrf
         <p class="form-comment__title">商品へのコメント</p>
-        <textarea class="form-comment__textarea" name="comment"></textarea>
+        <textarea class="form-comment__textarea" name="comment">{{ old('comment') }}</textarea>
         <!-- ボタン -->
         <div class="form__button">
           <button class="form__button-submit" type="submit">コメントを送信する</button>

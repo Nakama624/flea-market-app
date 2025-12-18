@@ -20,7 +20,7 @@ class ItemsTableSeeder extends Seeder
       'price' => '15000',
       'brand' => 'Rolax',
       'description' => 'スタイリッシュなデザインのメンズ腕時計',
-      'img' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Armani+Mens+Clock.jpg',
+      'item_img' => 'd_Armani+Mens+Clock.jpg',
       'condition_id' => '1',
       'sell_user_id' => '1',
     ];
@@ -30,9 +30,9 @@ class ItemsTableSeeder extends Seeder
       'price' => '5000',
       'brand' => '西芝',
       'description' => '高速で信頼性の高いハードディスク',
-      'img' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/HDD+Hard+Disk.jpg',
-      'condition_id' => '2', 
-      'sell_user_id' => '2',
+      'item_img' => 'd_HDD+Hard+Disk.jpg',
+      'condition_id' => '2',
+      'sell_user_id' => '1',
     ];
     DB::table('items')->insert($param);
     $param = [
@@ -40,9 +40,9 @@ class ItemsTableSeeder extends Seeder
       'price' => '300',
       'brand' => 'なし',
       'description' => '新鮮な玉ねぎ3束のセット',
-      'img' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/iLoveIMG+d.jpg',
-      'condition_id' => '3', 
-      'sell_user_id' => '1',     
+      'item_img' => 'd_iLoveIMG+d.jpg',
+      'condition_id' => '3',
+      'sell_user_id' => '1',
     ];
     DB::table('items')->insert($param);
     $param = [
@@ -50,9 +50,9 @@ class ItemsTableSeeder extends Seeder
       'price' => '4000',
       'brand' => '',
       'description' => 'クラシックなデザインの革靴',
-      'img' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Leather+Shoes+Product+Photo.jpg',
-      'condition_id' => '4',  
-      'sell_user_id' => '2',    
+      'item_img' => 'd_Leather+Shoes+Product+Photo.jpg',
+      'condition_id' => '4',
+      'sell_user_id' => '1',
     ];
     DB::table('items')->insert($param);
     $param = [
@@ -60,9 +60,9 @@ class ItemsTableSeeder extends Seeder
       'price' => '45000',
       'brand' => '',
       'description' => '高性能なノートパソコン',
-      'img' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Living+Room+Laptop.jpg',
-      'condition_id' => '1',  
-      'sell_user_id' => '1',    
+      'item_img' => 'd_Living+Room+Laptop.jpg',
+      'condition_id' => '1',
+      'sell_user_id' => '1',
     ];
     DB::table('items')->insert($param);
     $param = [
@@ -70,9 +70,9 @@ class ItemsTableSeeder extends Seeder
       'price' => '8000',
       'brand' => 'なし',
       'description' => '高音質のレコーディング用マイク',
-      'img' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Music+Mic+4632231.jpg',
-      'condition_id' => '2',  
-      'sell_user_id' => '2',    
+      'item_img' => 'd_Music+Mic+4632231.jpg',
+      'condition_id' => '2',
+      'sell_user_id' => '1',
     ];
     DB::table('items')->insert($param);
     $param = [
@@ -80,9 +80,9 @@ class ItemsTableSeeder extends Seeder
       'price' => '3500',
       'brand' => '',
       'description' => 'おしゃれなショルダーバッグ',
-      'img' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Purse+fashion+pocket.jpg',
+      'item_img' => 'd_Purse+fashion+pocket.jpg',
       'condition_id' => '3',
-      'sell_user_id' => '1',    
+      'sell_user_id' => '1',
     ];
     DB::table('items')->insert($param);
     $param = [
@@ -90,9 +90,9 @@ class ItemsTableSeeder extends Seeder
       'price' => '500',
       'brand' => 'なし',
       'description' => '使いやすいタンブラー',
-      'img' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Tumbler+souvenir.jpg',
+      'item_img' => 'd_Tumbler+souvenir.jpg',
       'condition_id' => '4',
-      'sell_user_id' => '2',    
+      'sell_user_id' => '2',
     ];
     DB::table('items')->insert($param);
     $param = [
@@ -100,9 +100,9 @@ class ItemsTableSeeder extends Seeder
       'price' => '4000',
       'brand' => 'Starbacks',
       'description' => '使いやすいタンブラー',
-      'img' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Waitress+with+Coffee+Grinder.jpg',
+      'item_img' => 'd_Waitress+with+Coffee+Grinder.jpg',
       'condition_id' => '1',
-      'sell_user_id' => '1',    
+      'sell_user_id' => '1',
     ];
     DB::table('items')->insert($param);
     $param = [
@@ -110,9 +110,9 @@ class ItemsTableSeeder extends Seeder
       'price' => '2500',
       'brand' => '',
       'description' => '便利なメイクアップセット',
-      'img' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/%E5%A4%96%E5%87%BA%E3%83%A1%E3%82%A4%E3%82%AF%E3%82%A2%E3%83%83%E3%83%95%E3%82%9A%E3%82%BB%E3%83%83%E3%83%88.jpg',
+      'item_img' => 'd_makeupset.jpg',
       'condition_id' => '2',
-      'sell_user_id' => '2',    
+      'sell_user_id' => '2',
     ];
     DB::table('items')->insert($param);
   }

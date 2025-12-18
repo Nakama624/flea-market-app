@@ -15,19 +15,19 @@ class ConditionsTableSeeder extends Seeder
   public function run()
   {
     $param = [
-      'condition' => '良好',
+      'condition_name' => '良好',
     ];
     DB::table('conditions')->insert($param);
     $param = [
-      'condition' => '目立った傷や汚れなし',
+      'condition_name' => '目立った傷や汚れなし',
     ];
     DB::table('conditions')->insert($param);
     $param = [
-      'condition' => 'やや傷や汚れあり',
+      'condition_name' => 'やや傷や汚れあり',
     ];
     DB::table('conditions')->insert($param);
     $param = [
-      'condition' => '状態が悪い',
+      'condition_name' => '状態が悪い',
     ];
     DB::table('conditions')->insert($param);
   }
