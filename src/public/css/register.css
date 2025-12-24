@@ -52,3 +52,9 @@
   text-align: center;
   text-decoration: none;
 }
+
+/* エラー */
+.form__error {
+  color: red;
+  font-size: 12px;
+}

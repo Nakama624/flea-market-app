@@ -25,20 +25,40 @@
       <!-- 画像が選択されたらすぐに表示 -->
       <input id="profile_img" type="file" name="profile_img" accept="image/*" class="profile-file" onchange="document.getElementById('profilePreview').src = window.URL.createObjectURL(this.files[0])">
     </div>
+    <div class="form__error">
+      @error('profile_img')
+        {{ $message }}
+      @enderror
+    </div>
     <!-- ユーザー名 -->
     <div class="form-input">
       <span class="form__label--item">ユーザー名</span>
       <input type="text" name="name" class="form__input--item" value="{{ $user->name }}" />
+      <div class="form__error">
+        @error('name')
+          {{ $message }}
+        @enderror
+      </div>
     </div>
     <!-- 郵便番号 -->
     <div class="form-input">
       <span class="form__label--item">郵便番号</span>
       <input type="text" name="postcode" class="form__input--item" value="{{ $user->postcode }}" />
+      <div class="form__error">
+        @error('postcode')
+          {{ $message }}
+        @enderror
+      </div>
     </div>
     <!-- 住所 -->
     <div class="form-input">
       <span class="form__label--item">住所</span>
       <input type="text" name="address" class="form__input--item" value="{{ $user->address }}" />
+      <div class="form__error">
+        @error('address')
+          {{ $message }}
+        @enderror
+      </div>
     </div>
     <!-- 建物 -->
     <div class="form-input">

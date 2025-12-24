@@ -1,6 +1,5 @@
 .header {
   background: #000;
-  max-width: 1540px;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -10,11 +9,10 @@
 
 .header-left {
   width: 25%;
-  
 }
 
 .header-left__logo {
-  width: 100%;
+  width: 300px;
 }
 
 .header-center {

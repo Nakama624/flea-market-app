@@ -14,11 +14,21 @@
       <span class="form__label--item">郵便番号</span>
       <input type="text" name="delivery_postcode" class="form__input--item"
     value="{{ old('delivery_postcode') }}" />
+      <div class="form__error">
+      @error('delivery_postcode')
+        {{ $message }}
+      @enderror
+    </div>
     </div>
     <!-- 住所 -->
     <div class="form-input">
       <span class="form__label--item">住所</span>
       <input type="text" name="delivery_address" class="form__input--item" value="{{ old('delivery_address') }}" />
+      <div class="form__error">
+        @error('delivery_address')
+          {{ $message }}
+        @enderror
+      </div>
     </div>
     <!-- 建物 -->
     <div class="form-input">

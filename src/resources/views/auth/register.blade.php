@@ -27,7 +27,7 @@
         @error('email')
           {{ $message }}
         @enderror
-      </div>      
+      </div>
     </div>
     <!-- パスワード -->
     <div class="form-input">
@@ -37,7 +37,7 @@
         @error('password')
           {{ $message }}
         @enderror
-      </div>           
+      </div>
     </div>
     <!-- 確認用パスワード -->
     <div class="form-input">
@@ -47,7 +47,7 @@
         @error('password_confirmation')
           {{ $message }}
         @enderror
-      </div>            
+      </div>
     </div>
     <!-- ボタン -->
     <div class="form__button">

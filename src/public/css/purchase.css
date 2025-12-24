@@ -78,16 +78,6 @@
   margin: 0;
 }
 
-
-
-
-
-
-
-
-
-
-
 /* 商品代金＆支払方法（右） */
 .payment-table{
   width: 100%;
@@ -119,3 +109,20 @@
   border-radius: 3px;
 }
 /* ボタン　ここまで */
+
+
+/* 支払方法 エラー */
+.form__error-payment {
+  color: red;
+  font-size: 12px;
+  margin-left: 60px;
+}
+
+/* 配送先 エラー*/
+.form__error {
+  color: red;
+  font-size: 12px;
+}
+.form__error li{
+list-style: none;
+}

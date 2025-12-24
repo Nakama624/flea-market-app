@@ -16,13 +16,13 @@
     @foreach ($items as $item)
     <div class="item-group__row">
       <!-- 商品画像 -->
-      <a href="/item/{{ $item->id }}">
-        <img class="item-group__img" src="{{ asset('storage/items/' . $item->item_img) }}" alt="商品画像" />
+      <a href="/item/{{ $item->id }}" class="item-group__img">
+        <img class="item-group__img-inner" src="{{ asset('storage/items/' . $item->item_img) }}" alt="商品画像" />
       </a>
       <!-- 商品名 -->
       <div class="item-group__name-sold">
         <p class="item-group__name">{{ $item->name }}</p>
-        @if(request('tab') === 'mylist' && $item->purchase)
+        @if(in_array($item->id, $soldItemIds))
           <p class="item-group__sold">SOLD</p>
         @endif
       </div>

@@ -16,13 +16,13 @@
       </div>
       <div class="left-row__name-price">
         <h1 class="item-name">{{ $item->name }}</h1>
-        <p class="item-price">￥{{ $item->price }}</p>
+        <p class="item-price">￥ {{ number_format($item->price) }}</p>
       </div>
     </div>
     <!-- 二段目 -->
     <div class="left-row2">
       <p class="left-row__ttl">支払方法</p>
-      <select class="payment_method__select" name="payment_id">
+      <select class="payment_method__select" name="payment_id" id="payment-select">
         <option value="" selected>選択してください</option>
         @foreach ($payments as $payment)
         <option value="{{ $payment->id }}">
@@ -30,6 +30,11 @@
         </option>
         @endforeach
       </select>
+      <div class="form__error-payment">
+        @error('payment_id')
+          {{ $message }}
+        @enderror
+      </div>
     </div>
     <!-- 三段目 -->
     <div class="left-row3">
@@ -48,6 +53,11 @@
           <input type="hidden" name="delivery_address" value="{{ old('delivery_address', $user->address) }}">
           <input type="hidden" name="delivery_building" value="{{ old('delivery_building', $user->building) }}">
       </div>
+      <div class="form__error">
+        @foreach (array_slice($errors->all(), 1) as $error)
+          <li>{{ $error }}</li>
+        @endforeach
+      </div>
     </div>
   </div>
 
@@ -56,11 +66,11 @@
     <table class="payment-table">
       <tr class="payment-table__row">
         <td class="payment-table__price">商品代金</td>
-        <td class="payment-table__price">￥{{ $item->price }}</td>
+        <td class="payment-table__price">￥ {{ number_format($item->price) }}</td>
       </tr>
       <tr class="payment-table__row">
         <td class="payment-table__price">支払方法</td>
-        <td class="payment-table__price"></td>
+        <td class="payment-table__price" id="selected-payment"></td>
       </tr>
     </table>
     <!-- ボタン -->
@@ -69,4 +79,22 @@
     </div>
   </div>
 </form>
+
+<script>
+  const select = document.getElementById('payment-select');
+  const display = document.getElementById('selected-payment');
+
+  function updatePayment() {
+    if (select.value === '') {
+      display.textContent = '';
+      return;
+    }
+    display.textContent = select.options[select.selectedIndex].text;
+  }
+
+  select.addEventListener('change', updatePayment);
+  updatePayment(); // 初期表示
+</script>
+
+
 @endsection

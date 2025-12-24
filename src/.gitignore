@@ -1,6 +1,11 @@
 /node_modules
 /public/hot
-/public/storage
+# 画像ファイルを追加
+# /public/storage
+/storage/*
+!/storage/app
+!/storage/app/public
+!/storage/app/public/**
 /storage/*.key
 /vendor
 .env

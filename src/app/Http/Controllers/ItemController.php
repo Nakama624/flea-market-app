@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Item;
+// use App\Models\User;
 use App\Models\Comment;
 use App\Models\Like;
 use App\Models\Condition;
@@ -12,20 +13,29 @@ use App\Models\Payment;
 use App\Models\Purchase;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\CommentRequest;
+use App\Http\Requests\ExhibitionRequest;
 
 class ItemController extends Controller
 {
   public function index(Request $request){
     $tab = $request->query('tab');
 
+    // おすすめタブ
     if ($tab === null) {
-      // SOLD以外をすべて表示
-      // 要修正：自分が出品した商品は表示しないように
-      $items = Item::whereDoesntHave('purchaseItem')->get();
-      return view('index', compact('items'));
+      $query = Item::query();
 
+      // ログイン時：自分が出品したitemは表示なし
+      // ログアウト時：すべての商品を表示
+      if (Auth::check()) {
+        $query->where('sell_user_id', '!=', Auth::id());
+      }
+
+      $items = $query->get();
+
+    // マイリストタブ
     }elseif ($tab === 'mylist'){
-      // 未認証の場合はItemを表示しない
+      // 未認証の場合は空表示
       if (!Auth::check()) {
         return view('index', [
             'items' => collect(),
@@ -37,10 +47,12 @@ class ItemController extends Controller
       $items = $user->likedItems()
         ->with('purchaseItem')
         ->get();
-
-      return view('index', compact('items', 'user', 'tab'));
     }
-    return redirect('/');
+
+    // SOLDも表示
+    $soldItemIds = Purchase::pluck('item_id')->toArray();
+
+    return view('index', compact('items', 'soldItemIds'));
   }
 
 
@@ -89,7 +101,7 @@ class ItemController extends Controller
 
 
   // 出品
-  public function itemStore(Request $request){
+  public function itemStore(ExhibitionRequest $request){
     // カテゴリ、コンディションを取得
     $conditions = Condition::all();
     $categories = Category::all();
@@ -119,7 +131,7 @@ class ItemController extends Controller
   }
 
   // コメント投稿
-  public function comment(Request $request, Item $item){
+  public function comment(CommentRequest $request, Item $item){
     $user = Auth::user();
 
     $data = $request->only(['comment']);

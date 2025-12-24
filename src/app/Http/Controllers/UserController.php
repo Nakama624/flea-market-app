@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Item;
 use App\Models\Purchase;
+use App\Http\Requests\ProfileRequest;
 
 class UserController extends Controller
 {
@@ -17,15 +18,15 @@ class UserController extends Controller
   }
 
   // 初回ログイン時はprofileの情報を追加
-  public function updateProfileInfo(Request $request){
+  public function updateProfileInfo(ProfileRequest $request){
     $user = Auth::user();
 
     $data = $request->only(['name', 'postcode', 'address', 'building']);
 
     // 画像が選択された場合だけ保存
     if ($request->hasFile('profile_img')) {
-        $path = $request->file('profile_img')->store('profiles', 'public');
-        $data['profile_img'] = $path;
+      $path = $request->file('profile_img')->store('profiles', 'public');
+      $data['profile_img'] = $path;
     }
 
     $user->update($data);
@@ -36,7 +37,7 @@ class UserController extends Controller
   // マイページを表示
   public function mypage(Request $request){
     $user = Auth::user();
-    $page = $request->query('page');
+    $page = $request->query('page', 'sell');
 
     $items = collect();
     $soldItemIds = [];
@@ -64,7 +65,6 @@ class UserController extends Controller
 
     }else{
       $items = Item::all();
-      // いったんすべて表示★
       $soldItemIds = Purchase::pluck('item_id')->toArray();
     }
     return view('mypage', compact('user', 'items', 'soldItemIds'));

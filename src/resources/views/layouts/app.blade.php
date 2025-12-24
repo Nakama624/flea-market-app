@@ -40,7 +40,7 @@
           </div>
         @endif
         <div class="header-nav__item">
-          <a class="header-nav__button" href="/mypage">マイページ</a>
+          <a class="header-nav__button" href="/mypage?page=sell">マイページ</a>
         </div>
         <div class="header-nav__item">
           <a href="/sell" class="header__btn--sell">出品</a>

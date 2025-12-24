@@ -23,7 +23,11 @@ class FortifyServiceProvider extends ServiceProvider
    */
   public function register(): void
   {
-      //
+    // Fortify：LoginRequest→Request/LoginRequest に変更する
+    $this->app->bind(
+      \Laravel\Fortify\Http\Requests\LoginRequest::class,
+      \App\Http\Requests\LoginRequest::class
+    );
   }
 
   /**

@@ -7,6 +7,8 @@ use App\Models\Item;
 use App\Models\Payment;
 use App\Models\Purchase;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\PurchaseRequest;
+use App\Http\Requests\AddressRequest;
 
 class PurchaseController extends Controller
 {
@@ -28,7 +30,7 @@ class PurchaseController extends Controller
   }
 
   // 住所変更確定
-  public function changeAddress(Request $request, $item_id){
+  public function changeAddress(AddressRequest $request, $item_id){
 
     $address = $request->only(['delivery_postcode', 'delivery_address', 'delivery_building']);
 
@@ -43,7 +45,7 @@ class PurchaseController extends Controller
 }
 
   // 商品購入確定
-  public function purchaseStore(Request $request, $item_id){
+  public function purchaseStore(PurchaseRequest $request, $item_id){
     $item = Item::find($item_id);
     $user = Auth::user();
 
@@ -59,7 +61,7 @@ class PurchaseController extends Controller
 
     $purchase = Purchase::create($purchaseData);
 
-    return redirect('mypage');
+    return redirect('/');
   }
 
 }

@@ -25,11 +25,12 @@
   <div class="form-change">
     <!-- 出品 -->
     <a class="form-change__sell {{ request('page') === 'sell' ? 'active' : '' }}" href="/mypage?page=sell">
-    出品した商品
+      出品した商品
+    </a>
     <!-- 購入 -->
     <a class="form-change__buy {{ request('page') === 'buy' ? 'active' : '' }}" href="/mypage?page=buy">
-    購入した商品
-  </a>
+      購入した商品
+    </a>
   </div>
   <!-- 商品 -->
   <div class="item-group">
@@ -37,8 +38,8 @@
     @foreach ($items as $item)
     <div class="item-group__row">
       <!-- 商品画像 -->
-      <a href="/item/{{ $item->id }}">
-        <img class="item-group__img" src="{{ asset('storage/items/' . $item->item_img) }}" alt="商品画像" />
+      <a href="/item/{{ $item->id }}" class="item-group__img">
+        <img class="item-group__img-inner" src="{{ asset('storage/items/' . $item->item_img) }}" alt="商品画像" />
       </a>
       <!-- 商品名 -->
       <div class="item-group__name-sold">

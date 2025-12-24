@@ -20,11 +20,15 @@
         <label for="item_img" class="item-img__btn">
           画像を選択する
         </label>
-              <!-- 画像が選択されたらすぐに表示 -->
-      <input id="item_img" type="file" name="item_img" accept="image/*" class="profile-file" onchange="document.getElementById('itemPreview').src = window.URL.createObjectURL(this.files[0])">
+        <!-- 画像が選択されたらすぐに表示 -->
+        <input id="item_img" type="file" name="item_img" accept="image/*" class="profile-file" onchange="document.getElementById('itemPreview').src = window.URL.createObjectURL(this.files[0])">
       </div>
     </div>
-
+    <div class="form__error">
+      @error('item_img')
+        {{ $message }}
+      @enderror
+    </div>
     <h2 class="content-subtitle">商品の詳細</h2>
     <!-- カテゴリー -->
     <div class="form-input">
@@ -37,6 +41,11 @@
         </label>
         @endforeach
       </div>
+      <div class="form__error">
+        @error('category_ids')
+          {{ $message }}
+        @enderror
+      </div>
     </div>
     <!-- 商品の状態 -->
     <div class="form-input">
@@ -48,11 +57,21 @@
         </option>
         @endforeach
       </select>
+      <div class="form__error">
+        @error('condition_id')
+          {{ $message }}
+        @enderror
+      </div>
     </div>
     <!-- 商品名 -->
     <div class="form-input">
       <span class="form__label--item">商品名</span>
       <input type="text" name="name" class="form__input--item"/>
+      <div class="form__error">
+        @error('name')
+          {{ $message }}
+        @enderror
+      </div>
     </div>
     <!-- ブランド名 -->
     <div class="form-input">
@@ -63,11 +82,21 @@
     <div class="form-input">
       <span class="form__label--item">商品の説明</span>
       <textarea name="description" class="form__textarea--item">{{ old('description') }}</textarea>
+      <div class="form__error">
+        @error('description')
+          {{ $message }}
+        @enderror
+      </div>
     </div>
     <!-- 販売価格 -->
     <div class="form-input">
       <span class="form__label--item">販売価格</span>
       <input type="text" name="price" class="form__input--item"/>
+      <div class="form__error">
+        @error('price')
+          {{ $message }}
+        @enderror
+      </div>
     </div>
     <!-- ボタン -->
     <div class="form__button">

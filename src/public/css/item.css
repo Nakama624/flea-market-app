@@ -30,34 +30,40 @@
 }
 
 /* いいね＆コメントアイコン */
-.icon-group{
+.icon-group {
   display: flex;
+  align-items: center;
 }
 
 .icon__likes,
-.icon__comment{
+.icon__comment {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   margin-left: 25px;
 }
 
-.icon{
-  width: 30px;
+.icon__likes button {
+  all: unset;
+  cursor: pointer;
 }
 
-.icon__count{
-  text-align: center;
-  margin-top: 0;
+.icon {
+  width: 30px;
+  display: block;
+}
+
+.icon__count {
+  margin-top: 4px;
   font-size: 12px;
+  text-align: center;
 }
 /* いいね＆コメントアイコン ここまで*/
 
-/* ボタン */
-.form__button {
-  width: 100%;
-  display: inline-block;
-  margin-top: 20px;
-}
-
-.form__button-submit {
+/* 購入手続き */
+.purchase__button-submit{
+  display: block;
   width: 100%;
   height: 40px;
   border: none;
@@ -66,8 +72,12 @@
   font-weight: bold;
   margin-bottom: 20px;
   border-radius: 3px;
+  text-decoration: none;
+  line-height: 40px;
+  text-align: center;
 }
-/* ボタン　ここまで */
+/* 購入手続きボタン　ここまで */
+
 
 /* 商品説明＆商品情報 */
 .item-describe{
@@ -78,42 +88,44 @@
   font-size: 14px;
 }
 
-.item-info{
-  margin-bottom: 15px;
-}
+/* 商品説明＆商品情報 ここまで */
 
-.item-info__group{
-  display: flex;
+
+/* カテゴリ＆商品状態 */
+.item-info__group {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  align-items: center;
 }
 
 .item-info__title {
   font-weight: bold;
-  margin-right: 30px;
   font-size: 16px;
-  margin-top: 0px;
 }
 
-.item-condition {
-  font-size: 16px;
-
-}
-/* 商品説明＆商品情報 ここまで */
-
-/* チップ */
 .category-wrapper {
   display: flex;
   flex-wrap: wrap;
+  gap: 5px;
 }
+
 .item-categories {
+  display: flex;
   padding: 3px 8px;
-  border: 2px solid #E64C4C;
+  border: 2px solid #DADADA;
+  background-color: #DADADA;
+  color: #3C3C3C;
   border-radius: 20px;
-  color: #E64C4C;
-  cursor: pointer;
   font-size: 10px;
-  transition: 0.2s;
 }
-/* チップここまで */
+
+.item-condition {
+  display: flex;
+  font-size: 16px;
+  width:60%;
+
+}
+/* カテゴリ＆商品状態　ここまで */
 
 /* コメント */
 .item-comment{
@@ -158,6 +170,31 @@
 }
 .form-comment__textarea{
   width: 100%;
-  height: 100px;
+  height: 200px;
 }
 /* コメント入力　ここまで */
+
+/* コメント送信　ボタン */
+.form__button {
+  width: 100%;
+  display: inline-block;
+  margin-top: 20px;
+}
+
+.form__button-submit {
+  width: 100%;
+  height: 40px;
+  border: none;
+  background-color: #E64C4C;
+  color: #fff;
+  font-weight: bold;
+  margin-bottom: 20px;
+  border-radius: 3px;
+}
+/* コメント送信　ここまで */
+
+/* エラー */
+.form__error {
+  color: red;
+  font-size: 12px;
+}

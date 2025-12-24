@@ -28,7 +28,7 @@
         @error('password')
           {{ $message }}
         @enderror
-      </div>      
+      </div>
     </div>
     <div class="form__button">
       <button class="form__button-submit" type="submit">ログインする</button>

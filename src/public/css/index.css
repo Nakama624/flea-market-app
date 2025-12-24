@@ -34,9 +34,23 @@
   flex-direction: column;
   align-items: flex-start;
 }
-.item-group__img{
+
+/* 画像 */
+.item-group__img {
   width: 100%;
+  height:120%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
+
+.item-group__img-inner {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 
 .item-group__name-sold{
   display: flex;
@@ -47,7 +61,6 @@
   align-items: center;
 }
 .item-group__name{
-  /* font-size: 18px; */
   width:70%
 }
 
