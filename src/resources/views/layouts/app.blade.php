@@ -11,21 +11,25 @@
 </head>
 <body>
   <header class="header">
+    <!-- ロゴ -->
     <div class="header-left">
       <a href="/">
         <img src="{{ asset('images/COACHTECH.png') }}" alt="COACHTECH" class="header-left__logo">
       </a>
     </div>
     <!-- "ログイン"または"会員登録"画面の場合は、検索＆ボタンは表示しない -->
-    @if (request()->path() == 'login' ||
-              request()->path() == 'register')
+    @if (request()->path() == 'login' || request()->path() == 'register')
       <div class="header__btn">
       </div>
     @else
+      <!-- 検索 -->
       <div class="header-center">
-        <!-- 検索機能要修正★ -->
-        <input class="search__input" type="text" name="email" placeholder="なにをお探しですか?" value="">
+        <form method="GET" action="/">
+          <input type="hidden" name="tab" value="mylist">
+          <input class="search__input" type="text" name="keyword" placeholder="なにをお探しですか?" value="{{ $keyword ?? '' }}">
+        </form>
       </div>
+      <!-- ボタン群 -->
       <div class="header-right">
         @if (Auth::check())
           <div class="header-nav__item">

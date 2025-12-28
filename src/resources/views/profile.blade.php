@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="content">
-  <form action="/mypage/profile" class="login-form" method="POST" enctype="multipart/form-data">
+  <form action="/mypage/profile" class="profile-form" method="POST" enctype="multipart/form-data">
     @method('PATCH')
     @csrf
     <h1 class="content-title">プロフィール設定</h1>
@@ -33,7 +33,7 @@
     <!-- ユーザー名 -->
     <div class="form-input">
       <span class="form__label--item">ユーザー名</span>
-      <input type="text" name="name" class="form__input--item" value="{{ $user->name }}" />
+      <input type="text" name="name" class="form__input--item" value="{{ old('name', $user->name) }}" />
       <div class="form__error">
         @error('name')
           {{ $message }}
@@ -43,7 +43,7 @@
     <!-- 郵便番号 -->
     <div class="form-input">
       <span class="form__label--item">郵便番号</span>
-      <input type="text" name="postcode" class="form__input--item" value="{{ $user->postcode }}" />
+      <input type="text" name="postcode" class="form__input--item" value="{{ old('postcode', $user->postcode) }}" />
       <div class="form__error">
         @error('postcode')
           {{ $message }}
@@ -53,7 +53,7 @@
     <!-- 住所 -->
     <div class="form-input">
       <span class="form__label--item">住所</span>
-      <input type="text" name="address" class="form__input--item" value="{{ $user->address }}" />
+      <input type="text" name="address" class="form__input--item" value="{{ old('address', $user->address) }}" />
       <div class="form__error">
         @error('address')
           {{ $message }}
@@ -63,7 +63,7 @@
     <!-- 建物 -->
     <div class="form-input">
       <span class="form__label--item">建物</span>
-      <input type="text" name="building" class="form__input--item" value="{{ $user['building'] }}"/>
+      <input type="text" name="building" class="form__input--item" value="{{ old('building', $user->building) }}" />
     </div>
     <!-- ボタン -->
     <div class="form__button">

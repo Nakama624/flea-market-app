@@ -16,6 +16,9 @@ use Laravel\Fortify\Fortify;
 use App\Http\Responses\RegisterResponse as CustomRegisterResponse;
 use Laravel\Fortify\Contracts\RegisterResponse;
 
+use Laravel\Fortify\Contracts\VerifyEmailResponse as VerifyEmailResponseContract;
+use App\Http\Responses\VerifyEmailResponse as CustomVerifyEmailResponse;
+
 class FortifyServiceProvider extends ServiceProvider
 {
   /**
@@ -57,6 +60,10 @@ class FortifyServiceProvider extends ServiceProvider
         return view('auth.login');
     });
 
+    Fortify::verifyEmailView(function () {
+      return view('auth.mail');
+    });
+
     RateLimiter::for('login', function (Request $request) {
         $email = (string) $request->email;
 
@@ -64,5 +71,11 @@ class FortifyServiceProvider extends ServiceProvider
     });
 
     $this->app->singleton(RegisterResponse::class, CustomRegisterResponse::class);
+
+    $this->app->singleton(
+      VerifyEmailResponseContract::class,
+      CustomVerifyEmailResponse::class
+);
+
   }
 }

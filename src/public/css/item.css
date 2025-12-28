@@ -33,6 +33,14 @@
 .icon-group {
   display: flex;
   align-items: center;
+  gap: 25px;
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
 }
 
 .icon__likes,
@@ -41,7 +49,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-left: 25px;
+  margin-left: 0
 }
 
 .icon__likes button {
@@ -87,7 +95,6 @@
 .item-description {
   font-size: 14px;
 }
-
 /* 商品説明＆商品情報 ここまで */
 
 
@@ -123,7 +130,6 @@
   display: flex;
   font-size: 16px;
   width:60%;
-
 }
 /* カテゴリ＆商品状態　ここまで */
 
@@ -176,8 +182,6 @@
 
 /* コメント送信　ボタン */
 .form__button {
-  width: 100%;
-  display: inline-block;
   margin-top: 20px;
 }
 
@@ -197,4 +201,55 @@
 .form__error {
   color: red;
   font-size: 12px;
+}
+
+@media screen and (max-width: 850px) {
+  .content {
+    margin: 0 auto;
+    padding: 30px;
+    display: flex;
+    gap: 30px;
+  }
+
+  .item-name{
+    font-size: 26px;
+  }
+
+  .item-info__title {
+    font-size: 14px;
+  }
+
+  .item-describe,
+  .item-info,
+  .item-comment{
+    margin-bottom: 0;
+    font-size:20px;
+  }
+
+  .item-comment{
+    margin-bottom: 10px;
+    font-size:20px;
+  }
+
+  .comments{
+    height: 25px;
+    margin: 3px auto;
+  }
+
+  .item-condition {
+    font-size: 14px;
+  }
+
+  .category-wrapper {
+    gap: 3px;
+  }
+
+
+  .item-categories {
+    font-size: 8px;
+  }
+  
+  .form-comment__textarea{
+    height: 100px;
+  }
 }

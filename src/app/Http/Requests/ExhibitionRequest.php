@@ -25,6 +25,7 @@ class ExhibitionRequest extends FormRequest
   {
     return [
       'item_img' => [
+        'required',
         'image',
         'mimes:jpeg,png',
       ],
@@ -43,6 +44,7 @@ class ExhibitionRequest extends FormRequest
   public function messages()
   {
     return [
+      'item_img.required' => '画像を選択してください',
       'item_img.mimes' => '拡張子は.jpegまたは.pngから選択してください',
       'name.required' => '商品名を入力してください',
       'description.required' => '商品の説明を入力してください',

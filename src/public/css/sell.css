@@ -6,15 +6,14 @@
 
 .sell-form {
   margin: 0 auto;
-  width: 500px;
+  width: 100%;
+  max-width: 500px;
 }
 
 .content-title {
   font-size: 28px;
   text-align: center;
 }
-
-
 
 .form-input {
   width: 100%;
@@ -25,31 +24,30 @@
   display: block;
   font-weight: bold;
   margin-bottom: 6px;
+  font-size: 18px;
 }
-
-
-
 
 .form__input--item {
   width: 100%;
   height: 35px;
 }
 
-
 /* 画像選択 */
 .profile-thumb {
   width: 100%;
-  height: 80px;
-  background: #e0e0e0;
+  min-height: 100px;
   overflow: hidden;
   flex-shrink: 0;
   position: relative;
+  background: #fff;
+  border: 1px dotted #b5b5b5;
+  border-radius: 4px;
 }
 
 .profile-thumb img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
+  object-fit: contain;
   display: block;
 }
 
@@ -63,8 +61,9 @@
 
 .item-img__btn {
   position: absolute;
-  bottom: 8px;
-  right: 8px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 2;
   display: inline-block;
   padding: 6px 14px;
@@ -80,7 +79,6 @@
 .form__button {
   margin-top: 40px;
   width: 100%;
-  display: inline-block;
 }
 
 .form__button-submit {
@@ -93,14 +91,12 @@
   margin-bottom: 20px;
 }
 
-
 .content-subtitle{
   color:#5F5F5F;
   border-bottom: 1px solid #000000;
 }
 
-
-/* チップ */
+/* カテゴリチップ */
 .category-wrapper {
   display: flex;
   flex-wrap: wrap;
@@ -123,7 +119,6 @@
   display: none;
 }
 
-/* ★選択されているlabel自体をスタイル変更 */
 .category-item:has(input:checked) {
   background-color: #E64C4C;
   color: #fff;
@@ -134,8 +129,35 @@
   height: 100px;
 }
 
+/* 販売価格　ここから */
+.price-input {
+  position: relative;
+  width: 100%;
+}
+
+.price-input .yen {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.form__input--price{
+  width: 100%;
+  height: 35px;
+  padding: 8px 12px 8px 32px;
+}
+/* 販売価格　ここまで */
+
 /* エラー */
 .form__error {
   color: red;
   font-size: 12px;
+}
+
+@media screen and (max-width: 850px){
+  .sell-form{
+    max-width: 400px;
+  }
 }

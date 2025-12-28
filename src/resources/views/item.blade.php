@@ -21,7 +21,7 @@
     <div class="icon-group">
       <form action="/items/{{ $item->id }}/like" method="POST" class="icon__likes">
         @csrf
-        <button type="submit" style="background:none;border:none;padding:0;cursor:pointer;">
+        <button type="submit" class="icon-button">
           @if($item->is_liked)
             <!-- いいね押下 -->
             <img class="icon" src="{{ asset('images/likes_pink.png') }}" alt="いいね" />
@@ -37,9 +37,10 @@
         <p class="icon__count">{{ $item->comments->count() }}</p>
       </div>
     </div>
-
-    <a class="purchase__button-submit" href="/purchase/{{ $item->id }}">購入手続きへ</a>
-
+    <!-- SOLDはボタンを表示しない -->
+    @if (!in_array($item->id, $soldItemIds))
+      <a class="purchase__button-submit" href="/purchase/{{ $item->id }}">購入手続きへ</a>
+    @endif
     <h2 class="item-describe">商品説明</h2>
     <p class="item-description">{{ $item->description }}</p>
 
@@ -70,7 +71,7 @@
       </div>
       <!-- ユーザー名 -->
       <span class="profile-name">
-        {{ $comment->user->name }}
+        {{ $comment->user?->name }}
       </span>
     </div>
     <!-- コメント表示 -->

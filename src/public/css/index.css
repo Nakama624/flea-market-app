@@ -32,13 +32,11 @@
 .item-group__row{
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
 }
 
-/* 画像 */
 .item-group__img {
   width: 100%;
-  height:120%;
+  aspect-ratio: 1 / 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -51,11 +49,9 @@
   object-fit: contain;
 }
 
-
 .item-group__name-sold{
   display: flex;
   width :100%;
-  border: none;
   height: 50px;
   justify-content: space-between;
   align-items: center;
@@ -68,4 +64,16 @@
   color:#ff0000;
   font-weight: bold;
   font-size: 20px;
+}
+
+@media screen and (max-width: 850px) {
+  .item-group{
+    gap: 20px;
+  }
+
+  .item-group__name,
+  .item-group__sold{
+    font-size: 15px;
+    margin-top: 0;
+  }
 }

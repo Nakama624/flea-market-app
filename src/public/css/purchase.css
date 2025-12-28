@@ -7,7 +7,7 @@
 }
 
 .left {
-  width:65%;
+  flex: 1;
 }
 
 .right {
@@ -94,8 +94,6 @@
 /* ボタン */
 .form__button {
   width: 100%;
-  display: inline-block;
-
 }
 
 .form__button-submit {
@@ -124,5 +122,24 @@
   font-size: 12px;
 }
 .form__error li{
-list-style: none;
+  list-style: none;
+}
+
+@media screen and (max-width: 850px){
+  .content {
+    gap: 30px;
+    display: block;
+  }
+
+  .left {
+    width: 100%;
+  }
+
+  .right {
+    margin-top: 50px;
+    width: 100%;
+  }
+  .payment-table{
+    width: 50%;
+  }
 }

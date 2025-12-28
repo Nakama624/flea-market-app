@@ -6,13 +6,13 @@
 
 @section('content')
 <div class="content">
-  <form action="/register" class="login-form" method="post">
+  <form action="/register" class="register-form" method="post">
     @csrf
     <h1 class="content-title">会員登録</h1>
     <!-- ユーザー名 -->
     <div class="form-input">
-      <span class="form__label--item">ユーザー名</span>
-      <input type="text" name="name" class="form__input--item" value="{{ old('name') }}" />
+      <label for="name" class="form__label--item">ユーザー名</label>
+      <input id="name" type="text" name="name" class="form__input--item" value="{{ old('name') }}" />
       <div class="form__error">
         @error('name')
           {{ $message }}
@@ -21,8 +21,8 @@
     </div>
     <!-- メールアドレス -->
     <div class="form-input">
-      <span class="form__label--item">メールアドレス</span>
-      <input type="text" name="email" class="form__input--item" value="{{ old('email') }}" />
+      <label for="email" class="form__label--item">メールアドレス</label>
+      <input id="email" type="text" name="email" class="form__input--item" value="{{ old('email') }}" />
       <div class="form__error">
         @error('email')
           {{ $message }}
@@ -31,8 +31,8 @@
     </div>
     <!-- パスワード -->
     <div class="form-input">
-      <span class="form__label--item">パスワード</span>
-      <input type="password" name="password" class="form__input--item"/>
+      <label for="password" class="form__label--item">パスワード</label>
+      <input id="password" type="password" name="password" class="form__input--item"/>
       <div class="form__error">
         @error('password')
           {{ $message }}
@@ -41,8 +41,8 @@
     </div>
     <!-- 確認用パスワード -->
     <div class="form-input">
-      <span class="form__label--item">確認用パスワード</span>
-      <input type="password" name="password_confirmation" class="form__input--item"/>
+      <label for="password_confirmation" class="form__label--item">確認用パスワード</label>
+      <input id="password_confirmation" type="password" name="password_confirmation" class="form__input--item"/>
       <div class="form__error">
         @error('password_confirmation')
           {{ $message }}

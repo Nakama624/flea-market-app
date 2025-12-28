@@ -11,24 +11,30 @@
     <h1 class="content-title">商品の出品</h1>
     <!-- 商品画像 -->
     <div class="form-input">
-      <span class="form__label--item">商品画像</span>
+      <label class="form__label--item">商品画像</label>
       <div class="profile-thumb">
-        <img
-          id="itemPreview"
-          src="{{ !empty($item?->item_img) ? asset('storage/' . $item->item_img) : '' }}"
-          alt="" >
+        @if (!empty($item?->item_img))
+          <img id="itemPreview" src="{{ !empty($item?->item_img) ? asset('storage/' . $item->item_img) : '' }}" alt="商品画像" >
+        @else
+          <img id="itemPreview" src="" alt="" style="display:none;">
+        @endif
         <label for="item_img" class="item-img__btn">
           画像を選択する
         </label>
         <!-- 画像が選択されたらすぐに表示 -->
-        <input id="item_img" type="file" name="item_img" accept="image/*" class="profile-file" onchange="document.getElementById('itemPreview').src = window.URL.createObjectURL(this.files[0])">
+        <input id="item_img" type="file" name="item_img" accept="image/*" class="profile-file" 
+          onchange="
+            const img = document.getElementById('itemPreview');
+            img.src = window.URL.createObjectURL(this.files[0]);
+            img.style.display = 'block';">
+      </div>
+      <div class="form__error">
+        @error('item_img')
+          {{ $message }}
+        @enderror
       </div>
     </div>
-    <div class="form__error">
-      @error('item_img')
-        {{ $message }}
-      @enderror
-    </div>
+
     <h2 class="content-subtitle">商品の詳細</h2>
     <!-- カテゴリー -->
     <div class="form-input">
@@ -49,8 +55,8 @@
     </div>
     <!-- 商品の状態 -->
     <div class="form-input">
-      <span class="form__label--item">商品の状態</span>
-      <select name="condition_id" class="form__input--item">
+      <label for="condition_id" class="form__label--item">商品の状態</label>
+      <select id="condition_id" name="condition_id" class="form__input--item">
         @foreach ($conditions as $condition)
         <option value="{{ $condition->id }}">
           {{ $condition->condition_name }}
@@ -65,8 +71,8 @@
     </div>
     <!-- 商品名 -->
     <div class="form-input">
-      <span class="form__label--item">商品名</span>
-      <input type="text" name="name" class="form__input--item"/>
+      <label for="name" class="form__label--item">商品名</label>
+      <input id="name" type="text" name="name" class="form__input--item"/>
       <div class="form__error">
         @error('name')
           {{ $message }}
@@ -75,13 +81,13 @@
     </div>
     <!-- ブランド名 -->
     <div class="form-input">
-      <span class="form__label--item">ブランド名</span>
-      <input type="text" name="brand" class="form__input--item"/>
+      <label for="brand" class="form__label--item">ブランド名</label>
+      <input id="brand" type="text" name="brand" class="form__input--item"/>
     </div>
     <!-- 商品の説明 -->
     <div class="form-input">
-      <span class="form__label--item">商品の説明</span>
-      <textarea name="description" class="form__textarea--item">{{ old('description') }}</textarea>
+      <label for="description" class="form__label--item">商品の説明</label>
+      <textarea id="description" name="description" class="form__textarea--item">{{ old('description') }}</textarea>
       <div class="form__error">
         @error('description')
           {{ $message }}
@@ -90,8 +96,11 @@
     </div>
     <!-- 販売価格 -->
     <div class="form-input">
-      <span class="form__label--item">販売価格</span>
-      <input type="text" name="price" class="form__input--item"/>
+      <label for="price" class="form__label--item">販売価格</label>
+      <div class="price-input">
+        <span class="yen">￥</span>
+        <input id="price" type="text" name="price" class="form__input--price"/>
+      </div>
       <div class="form__error">
         @error('price')
           {{ $message }}

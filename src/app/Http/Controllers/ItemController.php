@@ -4,15 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Item;
-// use App\Models\User;
 use App\Models\Comment;
-use App\Models\Like;
 use App\Models\Condition;
 use App\Models\Category;
-use App\Models\Payment;
 use App\Models\Purchase;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use App\Http\Requests\CommentRequest;
 use App\Http\Requests\ExhibitionRequest;
 
@@ -20,6 +16,12 @@ class ItemController extends Controller
 {
   public function index(Request $request){
     $tab = $request->query('tab');
+    $keyword = $request->query('keyword');
+
+    // 検索をするとマイリストへ遷移
+    if ($request->filled('keyword')) {
+        $tab = 'mylist';
+    }
 
     // おすすめタブ
     if ($tab === null) {
@@ -36,25 +38,30 @@ class ItemController extends Controller
     // マイリストタブ
     }elseif ($tab === 'mylist'){
       // 未認証の場合は空表示
+      // 検索の場合はマイリスト商品を対象に商品名で部分一致検索
       if (!Auth::check()) {
         return view('index', [
             'items' => collect(),
-            'tab'   => 'mypage',
+            'soldItemIds' => Purchase::pluck('item_id')->toArray(),
+            'tab' => 'mylist',
+            'keyword' => $keyword,
         ]);
       }
 
       $user = Auth::user();
       $items = $user->likedItems()
         ->with('purchaseItem')
+        ->when($request->filled('keyword'), function ($q) use ($keyword) {
+            $q->where('items.name', 'like', "%{$keyword}%");
+        })
         ->get();
     }
 
     // SOLDも表示
     $soldItemIds = Purchase::pluck('item_id')->toArray();
 
-    return view('index', compact('items', 'soldItemIds'));
+    return view('index', compact('items', 'soldItemIds', 'tab', 'keyword'));
   }
-
 
   // 商品詳細
   public function detail($item_id){
@@ -73,8 +80,10 @@ class ItemController extends Controller
       ->findOrFail($item_id);
 
     $user = Auth::user();
+    // SOLDは購入不可
+    $soldItemIds = Purchase::pluck('item_id')->toArray();
 
-    return view('item', compact('item', 'user'));
+    return view('item', compact('item', 'user','soldItemIds'));
   }
 
   public function toggle(Item $item){
