@@ -1,22 +1,22 @@
 # flea-market-app
 
-## Laravel環境構築
-
+## Dockerビルド
+```bash
 git clone git@github.com:Nakama624/flea-market-app.git
 cd flea-market-app
 docker-compose up -d --build
+```
+
+## Laravel環境構築
+```bash
 docker-compose exec php bash
 composer install
-cp .env.example .env
-　～環境変数の変更～
-DB_HOST=mysql
-DB_DATABASE=laravel_db
-DB_USERNAME=laravel_user
-DB_PASSWORD=laravel_pass
-
+cp .env.example .env　　～環境変数の変更～
 php artisan key:generate
 php artisan migrate
-php artisan seed
+php artisan db:seed
+
+```
 
 【mailhog手順】
 ≪env≫
@@ -43,7 +43,6 @@ PHP：Laravel Framework 8.83.29
 
 ## ER図
 ![alt text](flea_market_app.drawio.png)
-
 
 ## URL
 ・ログイン
