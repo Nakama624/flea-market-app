@@ -6,13 +6,33 @@
 
 @section('content')
 <div class="content">
-  <form action="/register" class="login-form">
+  <form action="/sell" class="sell-form" method="POST" enctype="multipart/form-data">
+    @csrf
     <h1 class="content-title">商品の出品</h1>
     <!-- 商品画像 -->
     <div class="form-input">
-      <span class="form__label--item">商品画像</span>
-      <input type="name" name="item-img" class="form__input--item-img"
-    value="{{ old('item-img') }}" />
+      <label class="form__label--item">商品画像</label>
+      <div class="profile-thumb">
+        @if (!empty($item?->item_img))
+          <img id="itemPreview" src="{{ !empty($item?->item_img) ? asset('storage/' . $item->item_img) : '' }}" alt="商品画像" >
+        @else
+          <img id="itemPreview" src="" alt="" style="display:none;">
+        @endif
+        <label for="item_img" class="item-img__btn">
+          画像を選択する
+        </label>
+        <!-- 画像が選択されたらすぐに表示 -->
+        <input id="item_img" type="file" name="item_img" accept="image/*" class="profile-file" 
+          onchange="
+            const img = document.getElementById('itemPreview');
+            img.src = window.URL.createObjectURL(this.files[0]);
+            img.style.display = 'block';">
+      </div>
+      <div class="form__error">
+        @error('item_img')
+          {{ $message }}
+        @enderror
+      </div>
     </div>
 
     <h2 class="content-subtitle">商品の詳細</h2>
@@ -20,106 +40,72 @@
     <div class="form-input">
       <span class="form__label--item">カテゴリー</span>
       <div class="category-wrapper">
+        @foreach ($categories as $category)
         <label class="category-item">
-          <input type="radio" name="category" value="ファッション">
-          ファッション
+          <input type="checkbox" name="category_ids[]" value="{{ $category->id }}">
+          {{ $category->category_name }}
         </label>
-
-        <label class="category-item">
-          <input type="radio" name="category" value="家電">
-          家電
-        </label>
-
-        <label class="category-item">
-          <input type="radio" name="category" value="インテリア">
-          インテリア
-        </label>
-
-        <label class="category-item">
-          <input type="radio" name="category" value="レディース">
-          レディース
-        </label>
-
-        <label class="category-item">
-          <input type="radio" name="category" value="メンズ">
-          メンズ
-        </label>
-
-        <label class="category-item">
-          <input type="radio" name="category" value="コスメ">
-          コスメ
-        </label>
-
-        <label class="category-item">
-          <input type="radio" name="category" value="本">
-          本
-        </label>
-
-        <label class="category-item">
-          <input type="radio" name="category" value="ゲーム">
-          ゲーム
-        </label>
-
-        <label class="category-item">
-          <input type="radio" name="category" value="スポーツ">
-          スポーツ
-        </label>
-
-        <label class="category-item">
-          <input type="radio" name="category" value="キッチン">
-          キッチン
-        </label>
-
-        <label class="category-item">
-          <input type="radio" name="category" value="ハンドメイド">
-          ハンドメイド
-        </label>
-
-        <label class="category-item">
-          <input type="radio" name="category" value="アクセサリー">
-          アクセサリー
-        </label>
-
-        <label class="category-item">
-          <input type="radio" name="category" value="おもちゃ">
-          おもちゃ
-        </label>
-
-        <label class="category-item">
-          <input type="radio" name="category" value="ベビー・キッズ">
-          ベビー・キッズ
-        </label>
+        @endforeach
+      </div>
+      <div class="form__error">
+        @error('category_ids')
+          {{ $message }}
+        @enderror
       </div>
     </div>
     <!-- 商品の状態 -->
     <div class="form-input">
-      <span class="form__label--item">商品の状態</span>
-      <select name="condition" class="form__input--item">
-        <option value="良好">良好</option>
-        <option value="目立った傷や汚れなし">目立った傷や汚れなし</option>
-        <option value="やや傷や汚れあり">やや傷や汚れあり</option>
-        <option value="状態が悪い">状態が悪い</option>
+      <label for="condition_id" class="form__label--item">商品の状態</label>
+      <select id="condition_id" name="condition_id" class="form__input--item">
+        @foreach ($conditions as $condition)
+        <option value="{{ $condition->id }}">
+          {{ $condition->condition_name }}
+        </option>
+        @endforeach
       </select>
+      <div class="form__error">
+        @error('condition_id')
+          {{ $message }}
+        @enderror
+      </div>
     </div>
     <!-- 商品名 -->
     <div class="form-input">
-      <span class="form__label--item">商品名</span>
-      <input type="name" name="name" class="form__input--item"/>
+      <label for="name" class="form__label--item">商品名</label>
+      <input id="name" type="text" name="name" class="form__input--item"/>
+      <div class="form__error">
+        @error('name')
+          {{ $message }}
+        @enderror
+      </div>
     </div>
     <!-- ブランド名 -->
     <div class="form-input">
-      <span class="form__label--item">ブランド名</span>
-      <input type="name" name="name" class="form__input--item"/>
+      <label for="brand" class="form__label--item">ブランド名</label>
+      <input id="brand" type="text" name="brand" class="form__input--item"/>
     </div>
     <!-- 商品の説明 -->
     <div class="form-input">
-      <span class="form__label--item">商品の説明</span>
-      <textarea name="describe" class="form__textarea--item">{{ old('describe') }}</textarea>
+      <label for="description" class="form__label--item">商品の説明</label>
+      <textarea id="description" name="description" class="form__textarea--item">{{ old('description') }}</textarea>
+      <div class="form__error">
+        @error('description')
+          {{ $message }}
+        @enderror
+      </div>
     </div>
     <!-- 販売価格 -->
     <div class="form-input">
-      <span class="form__label--item">販売価格</span>
-      <input type="text" name="name" class="form__input--item"/>
+      <label for="price" class="form__label--item">販売価格</label>
+      <div class="price-input">
+        <span class="yen">￥</span>
+        <input id="price" type="text" name="price" class="form__input--price"/>
+      </div>
+      <div class="form__error">
+        @error('price')
+          {{ $message }}
+        @enderror
+      </div>
     </div>
     <!-- ボタン -->
     <div class="form__button">

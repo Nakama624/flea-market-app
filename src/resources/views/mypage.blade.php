@@ -6,44 +6,50 @@
 
 @section('content')
 <div class="content">
-  <form action="/register" class="login-form">
-    <h1 class="content-title">プロフィール設定</h1>
-    <!-- プロフィール画像 -->
-    <div class="form-input profile-box">
-      <div class="profile-thumb">
+  <!-- プロフィール画像 -->
+  <div class="profile-box">
+    <div class="profile-thumb">
+      @if ($user->profile_img)
+        <img id="profilePreview" src="{{ asset('storage/profiles/' . $user->profile_img) }}" alt="" />
+      @else
         <img id="profilePreview" src="" alt="" />
-      </div>
-      <label for="profile_image" class="profile-btn">
-        画像を選択する
-      </label>
-      <input id="profile_image" type="file" name="profile_image" accept="image/*" class="profile-file">
+      @endif
     </div>
     <!-- ユーザー名 -->
-    <div class="form-input">
-      <span class="form__label--item">ユーザー名</span>
-      <input type="name" name="name" class="form__input--item"
-    value="{{ old('name') }}" />
+    <span class="profile-name">
+      {{ $user->name }}
+    </span>
+    <a class="profile-btn" href="/mypage/profile">マイページを編集</a>
+  </div>
+  <!-- タブ -->
+  <div class="form-change">
+    <!-- 出品 -->
+    <a class="form-change__sell {{ request('page') === 'sell' ? 'active' : '' }}" href="/mypage?page=sell">
+      出品した商品
+    </a>
+    <!-- 購入 -->
+    <a class="form-change__buy {{ request('page') === 'buy' ? 'active' : '' }}" href="/mypage?page=buy">
+      購入した商品
+    </a>
+  </div>
+  <!-- 商品 -->
+  <div class="item-group">
+    <!-- 出品商品の場合 -->
+    @foreach ($items as $item)
+    <div class="item-group__row">
+      <!-- 商品画像 -->
+      <a href="/item/{{ $item->id }}" class="item-group__img">
+        <img class="item-group__img-inner" src="{{ asset('storage/items/' . $item->item_img) }}" alt="商品画像" />
+      </a>
+      <!-- 商品名 -->
+      <div class="item-group__name-sold">
+        <p class="item-group__name">{{ $item->name }}</p>
+        @if($item->purchase)
+          <p class="item-group__sold">SOLD</p>
+        @endif
+      </div>
     </div>
-    <!-- 郵便番号 -->
-    <div class="form-input">
-      <span class="form__label--item">郵便番号</span>
-      <input type="text" name="postcode" class="form__input--item"
-    value="{{ old('postcode') }}" />
-    </div>
-    <!-- 住所 -->
-    <div class="form-input">
-      <span class="form__label--item">パスワード</span>
-      <input type="text" name="address" class="form__input--item"/>
-    </div>
-    <!-- 建物 -->
-    <div class="form-input">
-      <span class="form__label--item">建物</span>
-      <input type="text" name="building" class="form__input--item"/>
-    </div>
-    <!-- ボタン -->
-    <div class="form__button">
-      <button class="form__button-submit" type="submit">更新する</button>
-    </div>
-  </form>
+    @endforeach
+  </div>
 </div>
 @endsection
