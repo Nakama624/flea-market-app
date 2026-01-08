@@ -21,20 +21,21 @@ Route::get('/', [ItemController::class, 'index']);
 // 商品詳細画面
 Route::get('/item/{item_id}/', [ItemController::class, 'detail']);
 
+// 未認証の場合はメール認証誘導画面へ
 Route::get('/verify-notice', function () {
   return redirect('/auth/mail');
 })->middleware('auth')->name('verification.notice');
 
-// 認証必須
+// ログイン必須
 Route::middleware('auth')->group(function () {
 
-   // メール認証案内画面
+  // メール認証案内画面
   Route::get('/auth/mail', function () {
-  if (request()->user()->hasVerifiedEmail()) {
-    return redirect('/mypage/profile');
-  }
-  return view('auth.mail');
-});
+    if (request()->user()->hasVerifiedEmail()) {
+      return redirect('/mypage/profile');
+    }
+    return view('auth.mail');
+  });
 
   // 認証メール再送
   Route::post('/email/verification-notification', function () {

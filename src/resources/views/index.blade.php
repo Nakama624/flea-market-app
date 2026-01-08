@@ -23,7 +23,7 @@
       <div class="item-group__name-sold">
         <p class="item-group__name">{{ $item->name }}</p>
         @if(in_array($item->id, $soldItemIds))
-          <p class="item-group__sold">SOLD</p>
+          <p class="item-group__sold">Sold</p>
         @endif
       </div>
     </div>

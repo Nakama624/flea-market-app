@@ -50,12 +50,12 @@ class LoginTest extends TestCase
 
     // メッセージの一致確認
     $this->assertEquals(
-        'ログイン情報が登録されていません',
-        session('errors')->first('email')
+      'ログイン情報が登録されていません',
+      session('errors')->first('email')
     );
 
     // ログイン画面に戻る
     $response->assertRedirect('/login');
-}
+  }
 
 }
