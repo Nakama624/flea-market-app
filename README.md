@@ -5,6 +5,7 @@
 - `cd flea-market-app`
 - `docker-compose up -d --build`
 
+
 ## Laravel環境構築
 - `docker-compose exec php bash`
 - `composer install`
@@ -27,57 +28,95 @@
 - `php artisan migrate`
 - `php artisan db:seed`
 
-
-## mailhog設定手順
+## mailhog
+### 環境設定
 > `.env` ファイルを以下のように修正。
 > ```diff
 > -　MAIL_FROM_ADDRESS=null
 > +　MAIL_FROM_ADDRESS=no-reply@example.com
 >```
 
-## stripe決済手順
+## stripe決済
+### 環境設定
 > stripe決済のアカウントを作成し、`.env` ファイルに以下のように追加。
 > ```diff
 > +　STRIPE_SECRET=（stripe決済各ユーザーのシークレットキー）
 > +　APP_URL=http://localhost
 > ```
 
-### クレジットカード　テスト
+### 実行テスト１/クレジットカード（VISA/成功）
 - メールアドレス：任意のアドレス
 - カード番号(VISA)：4242424242424242
 - MM/YY：（任意の将来の日付）
 - セキュリティコード：（任意の 3 桁の数字）
 - 名前：任意の名前
 
-### コンビニ支払い　テスト
-※振込完了は未対応
+### 実行テスト２/コンビニ支払い（振込完了は未対応）
 - メールアドレス：任意のアドレス
 - 名前：任意の名前
 
-### stripe決済　テスト詳細
+### テスト詳細
 - https://docs.stripe.com/testing
 
-## テスト実行
+
+## 単体テスト
+### 環境設定
 - `docker-compose exec php bash`
+- `cp .env .env.testing`
+
 > `.env.testing` ファイルを以下のように修正。
 > ```diff
-★★
+> - APP_ENV=local
+> - APP_KEY=(.envのKEY)
+> + APP_ENV=test
+> + APP_KEY=
+> 
 > - DB_HOST=127.0.0.1
 > + DB_HOST=mysql
 >
-> - DB_DATABASE=laravel
-> - DB_USERNAME=root
-> - DB_PASSWORD=
-> + DB_DATABASE=laravel_db
-> + DB_USERNAME=laravel_user
-> + DB_PASSWORD=laravel_pass
+> - DB_DATABASE=laravel_db
+> - DB_USERNAME=laravel_user
+> - DB_PASSWORD=laravel_pass
+> + DB_DATABASE=demo_test
+> + DB_USERNAME=root
+> + DB_PASSWORD=root
 > ```
 
-- `vendor/bin/phpunit tests/Feature/RegisterTest.php`
-- `vendor/bin/phpunit tests/Feature/LoginTest.php`
-- `vendor/bin/phpunit tests/Feature/LogoutTest.php`
-- `vendor/bin/phpunit tests/Feature/IndexTest.php`
-- `vendor/bin/phpunit tests/Feature/MylistTest.php`
+- `php artisan key:generate --env=testing`
+- `php artisan migrate --env=testing`
+
+### テスト実行
+- 1.会員登録機能：
+  `vendor/bin/phpunit tests/Feature/RegisterTest.php`
+- 2.ログイン機能：
+  `vendor/bin/phpunit tests/Feature/LoginTest.php`
+- 3.ログアウト機能：
+  `vendor/bin/phpunit tests/Feature/LogoutTest.php`
+- 4.商品一覧取得：
+ `vendor/bin/phpunit tests/Feature/IndexTest.php`
+- 5.マイリスト一覧取得：
+ `vendor/bin/phpunit tests/Feature/MylistTest.php`
+- 6.商品検索機能：
+
+- 7.商品詳細情報取得：
+
+- 8.いいね機能：
+
+- 9.コメント送信機能：
+
+- 10.商品購入機能：
+
+- 11.支払方法選択機能：
+
+- 12.配送先変更機能：
+
+- 13.ユーザー情報取得：
+
+- 14.ユーザー情報変更：
+
+- 15.出品商品情報登録：
+
+- 16.メール認証機能：
 
 
 ## 使用技術（実行環境）
