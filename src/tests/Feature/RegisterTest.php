@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class RegisterTest extends TestCase
 {
-  // use RefreshDatabase;
+  use RefreshDatabase;
 
   private function validRegisterData(array $overrides = []): array
   {

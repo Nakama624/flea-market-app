@@ -41,6 +41,7 @@ class Item extends Model
   }
 
   public function likedUsers(){
-    return $this->belongsToMany(User::class, 'likes')->withTimestamps();
+    return $this->belongsToMany(User::class, 'likes', 'item_id', 'user_id')
+      ->withTimestamps();
   }
 }

@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<form class="content" action="/purchase/{{ $item->id }}" method="post" target="_blank">
+<form class="content" action="/purchase/{{ $item->id }}" method="post">
   @csrf
   <!-- 商品画像(左) -->
   <div class="left">
@@ -25,7 +25,10 @@
       <select class="payment_method__select" name="payment_id" id="payment-select">
         <option value="" selected>選択してください</option>
         @foreach ($payments as $payment)
-        <option value="{{ $payment->id }}">
+        <!-- <option value="{{ $payment->id }}">
+          {{ $payment->payment_method }}
+        </option> -->
+        <option value="{{ $payment->id }}" {{ old('payment_id') == $payment->id ? 'selected' : '' }}>
           {{ $payment->payment_method }}
         </option>
         @endforeach
@@ -70,7 +73,10 @@
       </tr>
       <tr class="payment-table__row">
         <td class="payment-table__price">支払方法</td>
-        <td class="payment-table__price" id="selected-payment"></td>
+        <!-- <td class="payment-table__price" id="selected-payment"></td> -->
+        <td class="payment-table__price" id="selected-payment">
+          {{ optional($payments->firstWhere('id', old('payment_id')))->payment_method }}
+        </td>
       </tr>
     </table>
     <!-- ボタン -->
@@ -80,7 +86,7 @@
   </div>
 </form>
 
-<script>
+<!-- <script>
   const select = document.getElementById('payment-select');
   const display = document.getElementById('selected-payment');
 
@@ -94,7 +100,7 @@
 
   select.addEventListener('change', updatePayment);
   updatePayment(); // 初期表示
-</script>
+</script> -->
 
 
 @endsection

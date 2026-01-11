@@ -25,6 +25,7 @@ class User extends Authenticatable implements MustVerifyEmail
     'address',
     'building',
     'profile_img',
+    'email_verified_at',
   ];
 
   /**
@@ -56,7 +57,8 @@ class User extends Authenticatable implements MustVerifyEmail
   }
 
   public function likedItems(){
-    return $this->belongsToMany(Item::class, 'likes')->withTimestamps();
+    return $this->belongsToMany(Item::class, 'likes', 'user_id', 'item_id')
+      ->withTimestamps();
   }
 
   public function purchases(){

@@ -95,7 +95,6 @@ class IndexTest extends TestCase
       'payment_method' => 'コンビニ払い',
     ]);
 
-
     // ログインユーザーの商品（表示されない）
     $myItem = Item::create([
       'name' => '商品A',

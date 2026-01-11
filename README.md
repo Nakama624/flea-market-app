@@ -70,9 +70,6 @@
 > - APP_KEY=(.envのKEY)
 > + APP_ENV=test
 > + APP_KEY=
-> 
-> - DB_HOST=127.0.0.1
-> + DB_HOST=mysql
 >
 > - DB_DATABASE=laravel_db
 > - DB_USERNAME=laravel_user
@@ -97,25 +94,25 @@
 - 5.マイリスト一覧取得：
  `vendor/bin/phpunit tests/Feature/MylistTest.php`
 - 6.商品検索機能：
-
+ `vendor/bin/phpunit tests/Feature/ItemSearchTest.php`
 - 7.商品詳細情報取得：
-
+ `vendor/bin/phpunit tests/Feature/ItemDetailTest.php`
 - 8.いいね機能：
-
+ `vendor/bin/phpunit tests/Feature/LikesTest.php`
 - 9.コメント送信機能：
-
+ `vendor/bin/phpunit tests/Feature/CommentsTest`
 - 10.商品購入機能：
-
+ `vendor/bin/phpunit tests/Feature/PurchaseTest`
 - 11.支払方法選択機能：
 
 - 12.配送先変更機能：
-
+ `vendor/bin/phpunit tests/Feature/ChangeDeliveryAddressTest`
 - 13.ユーザー情報取得：
 
 - 14.ユーザー情報変更：
-
+ `vendor/bin/phpunit tests/Feature/UserInfoTest`
 - 15.出品商品情報登録：
-
+ `vendor/bin/phpunit tests/Feature/SellItemTest`
 - 16.メール認証機能：
 
 

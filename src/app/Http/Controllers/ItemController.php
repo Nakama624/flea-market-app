@@ -41,10 +41,10 @@ class ItemController extends Controller
       // 検索の場合はマイリスト商品を対象に商品名で部分一致検索
       if (!Auth::check()) {
         return view('index', [
-            'items' => collect(),
-            'soldItemIds' => Purchase::distinct()->pluck('item_id')->toArray(),
-            'tab' => 'mylist',
-            'keyword' => $keyword,
+          'items' => collect(),
+          'soldItemIds' => Purchase::distinct()->pluck('item_id')->toArray(),
+          'tab' => 'mylist',
+          'keyword' => $keyword,
         ]);
       }
 
@@ -121,7 +121,6 @@ class ItemController extends Controller
     $categories = Category::all();
     // 出品者を取得
     $user = Auth::user();
-
 
     // 入力値
     $data = $request->only(['condition_id', 'name', 'brand', 'description', 'price']);
