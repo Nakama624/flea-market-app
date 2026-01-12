@@ -19,7 +19,5 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
+docker/mysql/data/*
 
-
-
-# dataの中　　git.ignoreファイルを置く
