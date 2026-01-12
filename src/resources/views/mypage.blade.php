@@ -34,7 +34,6 @@
   </div>
   <!-- 商品 -->
   <div class="item-group">
-    <!-- 出品商品の場合 -->
     @foreach ($items as $item)
     <div class="item-group__row">
       <!-- 商品画像 -->
@@ -44,7 +43,7 @@
       <!-- 商品名 -->
       <div class="item-group__name-sold">
         <p class="item-group__name">{{ $item->name }}</p>
-        @if($item->purchase)
+        @if($item->purchaseItem)
           <p class="item-group__sold">SOLD</p>
         @endif
       </div>

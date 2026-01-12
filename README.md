@@ -98,23 +98,23 @@
 - 7.商品詳細情報取得：
  `vendor/bin/phpunit tests/Feature/ItemDetailTest.php`
 - 8.いいね機能：
- `vendor/bin/phpunit tests/Feature/LikesTest.php`
+ `vendor/bin/phpunit tests/Feature/LikesTest.php.php`
 - 9.コメント送信機能：
- `vendor/bin/phpunit tests/Feature/CommentsTest`
+ `vendor/bin/phpunit tests/Feature/CommentsTest.php`
 - 10.商品購入機能：
- `vendor/bin/phpunit tests/Feature/PurchaseTest`
+ `vendor/bin/phpunit tests/Feature/PurchaseTest.php`
 - 11.支払方法選択機能：
-
+ `vendor/bin/phpunit tests/Feature/SelectPaymentMethodTest.php`
 - 12.配送先変更機能：
- `vendor/bin/phpunit tests/Feature/ChangeDeliveryAddressTest`
+ `vendor/bin/phpunit tests/Feature/ChangeDeliveryAddressTest.php`
 - 13.ユーザー情報取得：
-
+ `vendor/bin/phpunit tests/Feature/GetUserInfoTest.php`
 - 14.ユーザー情報変更：
- `vendor/bin/phpunit tests/Feature/UserInfoTest`
+ `vendor/bin/phpunit tests/Feature/ModifiedUserInfoTest.php`
 - 15.出品商品情報登録：
- `vendor/bin/phpunit tests/Feature/SellItemTest`
+ `vendor/bin/phpunit tests/Feature/SellItemTest.php`
 - 16.メール認証機能：
-
+ `vendor/bin/phpunit tests/Feature/MailAuthTest.php`
 
 ## 使用技術（実行環境）
 - PHP 8.1.34

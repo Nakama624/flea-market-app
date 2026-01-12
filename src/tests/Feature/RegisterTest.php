@@ -9,8 +9,7 @@ class RegisterTest extends TestCase
 {
   use RefreshDatabase;
 
-  private function validRegisterData(array $overrides = []): array
-  {
+  private function validRegisterData(array $overrides = []): array {
     return array_merge([
       'name' => 'テスト',
       'email' => 'test@example.com',
@@ -19,14 +18,12 @@ class RegisterTest extends TestCase
     ], $overrides);
   }
 
-  private function assertFirstErrorMessage(string $field, string $expected): void
-  {
+  private function assertFirstErrorMessage(string $field, string $expected): void{
     $this->assertEquals($expected, session('errors')->first($field));
   }
 
   /** 名前 */
-  public function test_register_name_required_message_is_shown()
-  {
+  public function test_register_name_required_message_is_shown(){
     $response = $this->post('/register', $this->validRegisterData([
       'name' => '',
     ]));
@@ -36,8 +33,7 @@ class RegisterTest extends TestCase
   }
 
   /** メール */
-  public function test_register_email_required_message_is_shown()
-  {
+  public function test_register_email_required_message_is_shown(){
     $response = $this->post('/register', $this->validRegisterData([
       'email' => '',
     ]));
@@ -47,8 +43,7 @@ class RegisterTest extends TestCase
   }
 
   /** パスワード未入力 */
-  public function test_register_password_required_message_is_shown()
-  {
+  public function test_register_password_required_message_is_shown(){
     $response = $this->post('/register', $this->validRegisterData([
       'password' => '',
       'password_confirmation' => '',
@@ -59,8 +54,7 @@ class RegisterTest extends TestCase
   }
 
   /** パスワード7文字以下 */
-  public function test_register_password_min_8_message_is_shown()
-  {
+  public function test_register_password_min_8_message_is_shown(){
     $response = $this->post('/register', $this->validRegisterData([
       'password' => '1234567',
       'password_confirmation' => '1234567',
@@ -71,8 +65,7 @@ class RegisterTest extends TestCase
   }
 
   /** 確認用パスワード不一致 */
-  public function test_register_password_confirmation_mismatch_message_is_shown()
-  {
+  public function test_register_password_confirmation_mismatch_message_is_shown(){
     $response = $this->post('/register', $this->validRegisterData([
       'password' => 'password123',
       'password_confirmation' => 'password999',
@@ -83,8 +76,7 @@ class RegisterTest extends TestCase
   }
 
   /** 登録されプロフィール設定へ遷移 */
-  public function test_register_success_creates_user_and_redirects_to_profile()
-  {
+  public function test_register_success_creates_user_and_redirects_to_profile(){
     $data = $this->validRegisterData([
       'email' => 'ok@example.com',
     ]);

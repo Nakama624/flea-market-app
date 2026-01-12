@@ -21,18 +21,7 @@
     </div>
     <!-- 二段目 -->
     <div class="left-row2">
-      <p class="left-row__ttl">支払方法</p>
-      <select class="payment_method__select" name="payment_id" id="payment-select">
-        <option value="" selected>選択してください</option>
-        @foreach ($payments as $payment)
-        <!-- <option value="{{ $payment->id }}">
-          {{ $payment->payment_method }}
-        </option> -->
-        <option value="{{ $payment->id }}" {{ old('payment_id') == $payment->id ? 'selected' : '' }}>
-          {{ $payment->payment_method }}
-        </option>
-        @endforeach
-      </select>
+      @livewire('payment-select', ['payments' => $payments])
       <div class="form__error-payment">
         @error('payment_id')
           {{ $message }}
@@ -73,9 +62,8 @@
       </tr>
       <tr class="payment-table__row">
         <td class="payment-table__price">支払方法</td>
-        <!-- <td class="payment-table__price" id="selected-payment"></td> -->
-        <td class="payment-table__price" id="selected-payment">
-          {{ optional($payments->firstWhere('id', old('payment_id')))->payment_method }}
+        <td class="payment-table__price">
+          @livewire('payment-display')
         </td>
       </tr>
     </table>
@@ -85,22 +73,4 @@
     </div>
   </div>
 </form>
-
-<!-- <script>
-  const select = document.getElementById('payment-select');
-  const display = document.getElementById('selected-payment');
-
-  function updatePayment() {
-    if (select.value === '') {
-      display.textContent = '';
-      return;
-    }
-    display.textContent = select.options[select.selectedIndex].text;
-  }
-
-  select.addEventListener('change', updatePayment);
-  updatePayment(); // 初期表示
-</script> -->
-
-
 @endsection

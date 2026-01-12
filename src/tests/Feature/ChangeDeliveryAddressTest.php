@@ -13,7 +13,7 @@ use App\Models\Payment;
 class ChangeDeliveryAddressTest extends TestCase
 {
   use RefreshDatabase;
-  
+
   // 送付先住所変更画面にて登録した住所が商品購入画面に反映されている
   // 購入した商品に送付先住所が紐づいて登録される
   public function test_change_delivery_address(){
@@ -62,11 +62,11 @@ class ChangeDeliveryAddressTest extends TestCase
     // Purchase に住所が保存される
     $buy = $this->actingAs($loginUser)
       ->post('/purchase/' . $item->id, [
-          'delivery_postcode' => '111-2222',
-          'delivery_address'  => '東京都八王子市111',
-          'delivery_building' => 'テストビル101',
-          'payment_id'        => $payment->id,
-        ]);
+        'delivery_postcode' => '111-2222',
+        'delivery_address'  => '東京都八王子市111',
+        'delivery_building' => 'テストビル101',
+        'payment_id'        => $payment->id,
+      ]);
 
     // Stripe にリダイレクトされる想定
     $buy->assertStatus(302);
