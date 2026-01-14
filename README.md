@@ -140,6 +140,6 @@
 - マイページ：http://localhost/mypage
 - 商品一覧：http://localhost/
 - 出品（ログイン必須）http://localhost/sell
-
+- 商品詳細画面やユーザープロフィール画面は商品一覧やマイページから遷移
 - phpMyAdmin：http://localhost:8080/
 
