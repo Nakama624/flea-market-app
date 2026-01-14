@@ -19,7 +19,7 @@
     <span class="profile-name">
       {{ $user->name }}
     </span>
-    <a class="profile-btn" href="/mypage/profile">マイページを編集</a>
+    <a class="profile-btn" href="/mypage/profile">プロフィールを編集</a>
   </div>
   <!-- タブ -->
   <div class="form-change">

@@ -1,5 +1,5 @@
 <div>
-  <p class="left-row__ttl">支払方法</p>
+  <p class="left-row__ttl">支払い方法</p>
 
   <select
     class="payment_method__select"

@@ -41,10 +41,14 @@
       <span class="form__label--item">カテゴリー</span>
       <div class="category-wrapper">
         @foreach ($categories as $category)
-        <label class="category-item">
-          <input type="checkbox" name="category_ids[]" value="{{ $category->id }}">
-          {{ $category->category_name }}
-        </label>
+          <label class="category-item">
+            <input
+              type="checkbox"
+              name="category_ids[]"
+              value="{{ $category->id }}"
+              {{ in_array($category->id, old('category_ids', [])) ? 'checked' : '' }}>
+            {{ $category->category_name }}
+          </label>
         @endforeach
       </div>
       <div class="form__error">
@@ -58,7 +62,9 @@
       <label for="condition_id" class="form__label--item">商品の状態</label>
       <select id="condition_id" name="condition_id" class="form__input--item">
         @foreach ($conditions as $condition)
-        <option value="{{ $condition->id }}">
+        <option
+          value="{{ $condition->id }}"
+          {{ (string)old('condition_id') === (string)$condition->id ? 'selected' : '' }}>
           {{ $condition->condition_name }}
         </option>
         @endforeach
@@ -72,7 +78,7 @@
     <!-- 商品名 -->
     <div class="form-input">
       <label for="name" class="form__label--item">商品名</label>
-      <input id="name" type="text" name="name" class="form__input--item"/>
+      <input id="name" type="text" name="name" class="form__input--item" value="{{ old('name') }}"/>
       <div class="form__error">
         @error('name')
           {{ $message }}
@@ -82,7 +88,7 @@
     <!-- ブランド名 -->
     <div class="form-input">
       <label for="brand" class="form__label--item">ブランド名</label>
-      <input id="brand" type="text" name="brand" class="form__input--item"/>
+      <input id="brand" type="text" name="brand" class="form__input--item" value="{{ old('brand') }}"/>
     </div>
     <!-- 商品の説明 -->
     <div class="form-input">
@@ -99,7 +105,7 @@
       <label for="price" class="form__label--item">販売価格</label>
       <div class="price-input">
         <span class="yen">￥</span>
-        <input id="price" type="text" name="price" class="form__input--price"/>
+        <input id="price" type="text" name="price" class="form__input--price" value="{{ old('price') }}"/>
       </div>
       <div class="form__error">
         @error('price')

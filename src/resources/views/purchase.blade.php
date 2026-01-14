@@ -57,7 +57,7 @@
         <td class="payment-table__price">￥ {{ number_format($item->price) }}</td>
       </tr>
       <tr class="payment-table__row">
-        <td class="payment-table__price">支払方法</td>
+        <td class="payment-table__price">支払い方法</td>
         <td class="payment-table__price">
           <!-- livewire/payment-display.blade.phpで支払方法表示を連動 -->
           @livewire('payment-display')

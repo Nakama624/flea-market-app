@@ -62,7 +62,7 @@
     </div>
     <!-- 建物 -->
     <div class="form-input">
-      <span class="form__label--item">建物</span>
+      <span class="form__label--item">建物名</span>
       <input type="text" name="building" class="form__input--item" value="{{ old('building', $user->building) }}" />
     </div>
     <!-- ボタン -->

@@ -39,6 +39,7 @@
 ## stripe決済
 ### 環境設定
 > stripe決済のアカウントを作成し、`.env` ファイルに以下のように追加。
+> https://dashboard.stripe.com/login?locale=ja-JP
 > ```diff
 > +　STRIPE_SECRET=（stripe決済各ユーザーのシークレットキー）
 > +　APP_URL=http://localhost
@@ -60,7 +61,13 @@
 
 
 ## 単体テスト
-### 環境設定
+### DBを作成
+- `docker-compose exec mysql bash`
+- `mysql -u root -p`
+- `CREATE DATABASE demo_test;`
+- `exit`
+
+### .env.testingを作成
 - `docker-compose exec php bash`
 - `cp .env .env.testing`
 

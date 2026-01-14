@@ -32,7 +32,7 @@
     </div>
     <!-- 建物 -->
     <div class="address-form__group">
-      <label for="delivery_building" class="address-form__label">建物</label>
+      <label for="delivery_building" class="address-form__label">建物名</label>
       <input id="delivery_building" type="text" name="delivery_building" class="address-form__input" value="{{ old('delivery_building') }}" />
     </div>
     <!-- ボタン -->
