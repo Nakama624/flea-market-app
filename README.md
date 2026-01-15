@@ -9,21 +9,7 @@
 ## Laravel環境構築
 - `docker-compose exec php bash`
 - `composer install`
-- `cp .env.example .env`
-
-> `.env` ファイルを以下のように修正。
-> ```diff
-> - DB_HOST=127.0.0.1
-> + DB_HOST=mysql
->
-> - DB_DATABASE=laravel
-> - DB_USERNAME=root
-> - DB_PASSWORD=
-> + DB_DATABASE=laravel_db
-> + DB_USERNAME=laravel_user
-> + DB_PASSWORD=laravel_pass
-> ```
-
+- `cp .env.example .env`、環境変数を変更
 - `php artisan key:generate`
 - `php artisan migrate`
 - `php artisan db:seed`
@@ -63,29 +49,13 @@
 ## 単体テスト
 ### DBを作成
 - `docker-compose exec mysql bash`
-- `mysql -u root -p`
+- `mysql -u root -p`、パスワード入力
 - `CREATE DATABASE demo_test;`
 - `exit`
 
 ### .env.testingを作成
 - `docker-compose exec php bash`
-- `cp .env .env.testing`
-
-> `.env.testing` ファイルを以下のように修正。
-> ```diff
-> - APP_ENV=local
-> - APP_KEY=(.envのKEY)
-> + APP_ENV=test
-> + APP_KEY=
->
-> - DB_DATABASE=laravel_db
-> - DB_USERNAME=laravel_user
-> - DB_PASSWORD=laravel_pass
-> + DB_DATABASE=demo_test
-> + DB_USERNAME=root
-> + DB_PASSWORD=root
-> ```
-
+- `cp .env .env.testing`、環境変数を変更
 - `php artisan key:generate --env=testing`
 - `php artisan migrate --env=testing`
 
