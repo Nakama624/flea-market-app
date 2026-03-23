@@ -195,7 +195,8 @@
   }
 
   .form-change__sell,
-  .form-change__buy {
+  .form-change__buy,
+  .form-change__progress {
     font-size: 14px;
   }
 
