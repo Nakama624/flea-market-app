@@ -129,3 +129,5 @@
 - 商品詳細画面やユーザープロフィール画面は商品一覧やマイページから遷移
 - phpMyAdmin：http://localhost:8080/
 
+- （protest機能）チャット：（例）http://localhost/chat/7(←item_idが入ります)
+
