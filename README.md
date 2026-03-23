@@ -1,4 +1,4 @@
-# flea-market-app
+# Protest_flea-market-app
 
 ## Dockerビルド
 - `git clone git@github.com:Nakama624/flea-market-app.git`
@@ -101,8 +101,24 @@
 - stripe決済 versions : * v19.1.0
 - Mailhog(取得なし)
 
-## ER図
-![alt text](flea_market_app.drawio.png)
+## ダミーデータ(Protest要件追加)
+### test1
+- メールアドレス`test1@gmail.com`
+- パスワード `password`
+  ※CO01～CO05までの出品者
+
+### test2
+- メールアドレス`test2@gmail.com`
+- パスワード `password`
+  ※CO06～CO010までの出品者
+
+### test2
+- メールアドレス`test3@gmail.com`
+- パスワード `password`
+  ※出品者なし
+
+## ER図(Protest要件追加)
+![alt text](flea_market_app.drawio-1.png)
 
 ## URL
 - ログイン：http://localhost/login
@@ -113,8 +129,3 @@
 - 商品詳細画面やユーザープロフィール画面は商品一覧やマイページから遷移
 - phpMyAdmin：http://localhost:8080/
 
-# protest_flea-market-app
-# protest_flea-market-app
-# protest_flea-market-app
-# protest_flea-market-app
-# protest_flea-market-app

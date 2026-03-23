@@ -53,6 +53,7 @@ class UserController extends Controller
     $items = collect();
     $soldItemIds = [];
     $progressItemCount = 0;
+    $firstProgressItemId = null;
 
     $assessmentChats = AssessmentChat::where(function ($query) use ($user) {
         $query->where('seller_user_id', $user->id)
@@ -83,21 +84,29 @@ class UserController extends Controller
         ->pluck('item');
 
     // 取引中の商品(メッセージのやり取りがある商品が表示される)
-    }elseif ($page === 'progress'){
+    }elseif ($page === 'progress') {
 
-      $items = $assessmentChats->map(function ($chat) use ($user) {
-        // 未読件数を取得
-        $unreadCount = $chat->chats
-          ->where('sender_user_id', '!=', $user->id) // 自分以外のメッセージをカウント
-          ->whereNull('read_at')
-          ->count();
+        $assessmentChats = $assessmentChats->sortByDesc(function ($chat) {
+            $latestChat = $chat->chats->sortByDesc('created_at')->first();
 
-        // itemに追加
-        $chat->item->unread_count = $unreadCount;
-        $chat->item->assessment_chat_id = $chat->id;
+            return $latestChat?->created_at ?? $chat->created_at;
+        });
 
-        return $chat->item;
-      });
+        $items = $assessmentChats->map(function ($chat) use ($user) {
+            // 未読件数を取得
+            $unreadCount = $chat->chats
+                ->where('sender_user_id', '!=', $user->id)
+                ->whereNull('read_at')
+                ->count();
+
+            // itemに追加
+            $chat->item->unread_count = $unreadCount;
+            $chat->item->assessment_chat_id = $chat->id;
+
+            return $chat->item;
+        });
+
+        $firstProgressItemId = $items->first()?->id;
 
     }else{
       // SOLD
@@ -106,6 +115,6 @@ class UserController extends Controller
       return redirect('/mypage?page=sell');
     }
 
-    return view('mypage', compact('user', 'items', 'soldItemIds', 'averageScore', 'progressItemCount'));
+    return view('mypage', compact('user', 'items', 'soldItemIds', 'averageScore', 'progressItemCount', 'firstProgressItemId'));
   }
 }

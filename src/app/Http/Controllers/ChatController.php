@@ -12,63 +12,79 @@ use App\Http\Requests\UpdateMessageRequest;
 
 class ChatController extends Controller
 {
-  public function show(AssessmentChat $assessmentChat){ // ★修正
+  public function show(Item $item){
     $user = Auth::user();
 
-    $assessmentChat->load(['item.seller', 'seller']); // ★修正
-    $item = $assessmentChat->item; // ★修正
+    $assessmentChat = AssessmentChat::with(['item.seller', 'seller'])
+        ->where('item_id', $item->id)
+        ->first();
 
-    // ★修正: 自分に関係ある取引だけ許可
+    // assessmentChat がDBにあるものだけサイドバーに表示
+    $progressItems = AssessmentChat::where(function ($query) use ($user) {
+            $query->where('seller_user_id', $user->id)
+                  ->orWhere('buyer_user_id', $user->id);
+        })
+        ->with(['item', 'chats'])
+        ->get()
+        ->sortByDesc(function ($chat) {
+            return $chat->chats->max('created_at') ?? $chat->created_at;
+        });
+
+    $shouldOpenAssessmentModal = false;
+
+    // assessmentChat がまだ無いなら、チャット一覧は空で表示
+    if (!$assessmentChat) {
+        $chats = collect();
+
+        return view('chat', compact(
+            'item',
+            'user',
+            'assessmentChat',
+            'progressItems',
+            'chats',
+            'shouldOpenAssessmentModal'
+        ));
+    }
+
     if ($assessmentChat->seller_user_id !== $user->id && $assessmentChat->buyer_user_id !== $user->id) {
         abort(403);
     }
 
-    // 取引中の商品をすべて取得してサイドバーに表示する
-    $progressItems = AssessmentChat::where(function ($query) use ($user) {
-      $query->where('seller_user_id', $user->id)
-            ->orWhere('buyer_user_id', $user->id);
-    })
-    ->with(['item'])
-    ->get();
-
     $chats = $assessmentChat->chats()
-      ->with('sender')
-      ->oldest()
-      ->get();
-
-    $shouldOpenAssessmentModal = false;
+        ->with('sender')
+        ->oldest()
+        ->get();
 
     $assessmentChat->chats()
-      ->where('sender_user_id', '!=', $user->id)
-      ->whereNull('read_at')
-      ->update([
-        'read_at' => now()
-      ]);
+        ->where('sender_user_id', '!=', $user->id)
+        ->whereNull('read_at')
+        ->update([
+            'read_at' => now()
+        ]);
 
     if ($assessmentChat->seller_user_id === $user->id) {
-      $hasSentAssessment = $assessmentChat->assessments()
-        ->where('from_user_id', $user->id)
-        ->exists();
+        $hasSentAssessment = $assessmentChat->assessments()
+            ->where('from_user_id', $user->id)
+            ->exists();
 
-      $hasReceivedAssessment = $assessmentChat->assessments()
-        ->where('to_user_id', $user->id)
-        ->exists();
+        $hasReceivedAssessment = $assessmentChat->assessments()
+            ->where('to_user_id', $user->id)
+            ->exists();
 
-      if (!$hasSentAssessment && $hasReceivedAssessment) {
-        $shouldOpenAssessmentModal = true;
-      }
+        if (!$hasSentAssessment && $hasReceivedAssessment) {
+            $shouldOpenAssessmentModal = true;
+        }
     }
 
     return view('chat', compact(
-      'item',
-      'user',
-      'assessmentChat',
-      'progressItems',
-      'chats',
-      'shouldOpenAssessmentModal'
+        'item',
+        'user',
+        'assessmentChat',
+        'progressItems',
+        'chats',
+        'shouldOpenAssessmentModal'
     ));
   }
-
 
   public function send(MessageRequest $request, Item $item){
       $user = Auth::user();
@@ -182,6 +198,6 @@ class ChatController extends Controller
         'edited_at' => now(), // ★修正: 編集日時も更新
     ]);
 
-    return redirect("/item/{$item->id}/chat");
+    return redirect('/chat/' . $item->id);
   }
 }

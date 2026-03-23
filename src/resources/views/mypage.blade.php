@@ -42,7 +42,8 @@
     <a class="form-change__buy {{ request('page') === 'buy' ? 'active' : '' }}" href="/mypage?page=buy">
       購入した商品
     </a>
-    <a class="form-change__progress {{ request('page') === 'progress' ? 'active' : '' }}" href="/mypage?page=progress">
+    <a class="form-change__progress {{ request('page') === 'progress' ? 'active' : '' }}"
+      href="{{ $firstProgressItemId ? url('/chat/' . $firstProgressItemId) : url('/mypage?page=progress') }}">
       取引中の商品
       <span class="progress-badge">{{ $progressItemCount ?? 0 }}</span>
     </a>
@@ -54,7 +55,7 @@
       <!-- 商品画像 -->
       <!-- 取引中の商品タブからはチャット画面へ遷移 -->
       @if(request('page') === 'progress')
-        <a href="/chat/{{ $item->assessment_chat_id }}" class="item-group__img">
+        <a href="/chat/{{ $item->id }}" class="item-group__img">
           <img class="item-group__img-inner" src="{{ asset('storage/items/' . $item->item_img) }}" alt="商品画像" />
           @if(!empty($item->unread_count))
             <span class="badge">{{ $item->unread_count }}</span>

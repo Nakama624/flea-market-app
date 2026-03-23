@@ -89,7 +89,7 @@ Route::middleware('auth')->group(function () {
 
     // 以降proテスト追加
     // チャット表示
-    Route::get('/chat/{assessmentChat}', [ChatController::class, 'show']);
+    Route::get('/chat/{item}', [ChatController::class, 'show']);
     // 送信
     Route::post('/item/{item}/chat', [ChatController::class, 'send']);
     Route::patch('/item/{item}/chat/update', [ChatController::class, 'update']); // 編集

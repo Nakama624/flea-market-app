@@ -9,11 +9,11 @@
   <!-- 左 -->
   <div class="left">
     <p class="text">その他の取引</p>
-      @foreach($progressItems as $progressItem)
-        <a href="/chat/{{ $progressItem->id }}" class="progress-item"> {{-- ★修正 --}}
-          <p class="progress-item__name">{{ $progressItem->item->name }}</p>
-        </a>
-      @endforeach
+    @foreach($progressItems as $progressItem)
+      <a href="/chat/{{ $progressItem->item->id }}" class="progress-item">
+        <p class="progress-item__name">{{ $progressItem->item->name }}</p>
+      </a>
+    @endforeach
   </div>
 
   <!-- 右 -->
@@ -21,11 +21,11 @@
     <!-- 一段目 -->
     <div class="right-row">
       <div class="profile-thumb">
-        @if ($assessmentChat->seller->profile_img)
-          <img id="profilePreview" src="{{ asset('storage/profiles/' . $item->seller->profile_img) }}" alt="" />
-        @else
-          <img id="profilePreview" src="" alt="" />
-        @endif
+      @if ($assessmentChat && $assessmentChat->seller && $assessmentChat->seller->profile_img)
+        <img id="profilePreview" src="{{ asset('storage/profiles/' . $item->seller->profile_img) }}" alt="" />
+      @else
+        <img id="profilePreview" src="" alt="" />
+      @endif
       </div>
       <!-- ユーザー名 -->
       <span class="profile-name">
@@ -92,7 +92,7 @@
                 <!-- メッセージの表示のみ -->
                 <div class="message">{{ $chat->chat }}</div>
                 <div class="edit-delete__btn">
-                  <form action="/item/{{ $item->id }}/chat" method="get" style="display:inline;">
+                  <form action="/chat/{{ $item->id }}" method="get" style="display:inline;">
                     <input type="hidden" name="edit" value="{{ $chat->id }}">
                     <button type="submit" class="edit">編集</button>
                   </form>
@@ -133,13 +133,10 @@
     <form action="/item/{{$item->id}}/chat" method="post" class="send-message" enctype="multipart/form-data">
       @csrf
       <div class="message-validate">
-        <textarea
-          name="message"
-          class="send-message__input"
-          placeholder="取引メッセージを記入してください">
-          {{ old('message') }}
-        </textarea>
-        <div class="form__error">
+      <textarea
+        name="message"
+        class="send-message__input"
+        placeholder="取引メッセージを記入してください">{{ old('message') }}</textarea>        <div class="form__error">
           @error('message')
             {{ $message }}
           @enderror
