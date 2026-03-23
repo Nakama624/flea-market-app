@@ -8,7 +8,7 @@
 .profile-box {
   display: flex;
   align-items: center;
-  gap: 80px;
+  gap: 50px;
   padding:50px 100px;
 }
 
@@ -30,6 +30,12 @@
 
 .profile-name{
   font-size: 20px;
+  display:flex;
+  justify-content: center;
+}
+
+.name-score{
+  display: block;
 }
 
 .profile-btn {
@@ -45,6 +51,19 @@
   text-decoration: none;
 }
 /* プロフィール画像 */
+
+.profile-score {
+  margin-top: 8px;
+}
+
+.profile-score .star {
+  font-size: 28px;
+  color: #d9d9d9;
+}
+
+.profile-score .star.active {
+  color: #f4d000;
+}
 
 /* タブ */
 .form-change {
@@ -71,6 +90,13 @@
 
 .form-change__buy{
   font-size: 20px;
+}
+
+.form-change__progress{
+  font-size: 20px;
+  width:200px;
+  display: flex;
+  align-items: center;
 }
 /* タブ */
 
@@ -116,6 +142,38 @@
   color: #ff0000;
   font-weight: bold;
   font-size: 18px;
+}
+
+/* 新規通知未読件数（取引中の商品） */
+.item-group__img {
+  position: relative;
+  display: inline-block;
+}
+
+.badge {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+
+  background: red;
+  color: #fff;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 50%;
+}
+
+.progress-badge {
+  width: 20px;            /* ★追加 */
+  height: 20px;           /* ★追加 */
+  background: red;
+  color: #fff;
+  font-size: 12px;
+
+  display: flex;
+  align-items: center;    /* ★縦中央 */
+  justify-content: center;/* ★横中央 */
+
+  border-radius: 50%;
 }
 
 @media screen and (max-width: 850px) {

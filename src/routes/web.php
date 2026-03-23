@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\ChatController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -72,7 +73,6 @@ Route::middleware('auth')->group(function () {
     // マイページ画面表示
     Route::get('/mypage', [UserController::class, 'mypage']);
 
-
     // プロフィール登録
     Route::get('/mypage/profile', [UserController::class, 'profile']);
     Route::patch('/mypage/profile', [UserController::class, 'updateProfileInfo']);
@@ -86,6 +86,18 @@ Route::middleware('auth')->group(function () {
     // Stripe戻り先（Webhookなしでpaid化するため）
     Route::get('/purchase/stripe/success', [PurchaseController::class, 'stripeSuccess'])->name('purchase.stripe.success');
     Route::get('/purchase/stripe/cancel',  [PurchaseController::class, 'stripeCancel'])->name('purchase.stripe.cancel');
+
+    // 以降proテスト追加
+    // チャット表示
+    Route::get('/chat/{assessmentChat}', [ChatController::class, 'show']);
+    // 送信
+    Route::post('/item/{item}/chat', [ChatController::class, 'send']);
+    Route::patch('/item/{item}/chat/update', [ChatController::class, 'update']); // 編集
+    Route::delete('/item/{item}/chat/delete', [ChatController::class, 'delete']); // 削除
+
+    // 取引完了
+    Route::patch('/item/{item}/completed', [ChatController::class, 'assessment'])
+        ->name('item.completed');
   });
 });
 

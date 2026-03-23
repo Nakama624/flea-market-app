@@ -64,5 +64,41 @@ class User extends Authenticatable implements MustVerifyEmail
   public function purchases(){
     return $this->hasMany(Purchase::class, 'user_id');
   }
+
+  // 以下、protest用追加
+    // -----------------
+  // Chat（送信した）
+  // -----------------
+  public function sentChats(){
+    return $this->hasMany(Chat::class, 'sender_user_id');
+  }
+
+  // -----------------
+  // AssessmentChat（売り手として）
+  // -----------------
+  public function sellingAssessmentChats() {
+    return $this->hasMany(AssessmentChat::class, 'seller_user_id');
+  }
+
+  // -----------------
+  // AssessmentChat（買い手として）
+  // -----------------
+  public function buyingAssessmentChats(){
+    return $this->hasMany(AssessmentChat::class, 'buyer_user_id');
+  }
+
+  // -----------------
+  // Assessment（評価した）
+  // -----------------
+  public function givenAssessments(){
+    return $this->hasMany(Assessment::class, 'from_user_id');
+  }
+
+  // -----------------
+  // Assessment（評価された）
+  // -----------------
+  public function receivedAssessments(){
+    return $this->hasMany(Assessment::class, 'to_user_id');
+  }
 }
 

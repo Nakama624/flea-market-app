@@ -16,9 +16,20 @@
       @endif
     </div>
     <!-- ユーザー名 -->
-    <span class="profile-name">
-      {{ $user->name }}
-    </span>
+    <div class="name-score">
+      <span class="profile-name">
+        {{ $user->name }}
+      </span>
+      <!-- ★取引評価の平均を表示 -->
+      @if(!empty($averageScore))
+        <div class="profile-score">
+          @for ($i = 1; $i <= 5; $i++)
+            <span class="star {{ $i <= $averageScore ? 'active' : '' }}">★</span>
+          @endfor
+        </div>
+      @endif
+    </div>
+
     <a class="profile-btn" href="/mypage/profile">プロフィールを編集</a>
   </div>
   <!-- タブ -->
@@ -31,15 +42,29 @@
     <a class="form-change__buy {{ request('page') === 'buy' ? 'active' : '' }}" href="/mypage?page=buy">
       購入した商品
     </a>
+    <a class="form-change__progress {{ request('page') === 'progress' ? 'active' : '' }}" href="/mypage?page=progress">
+      取引中の商品
+      <span class="progress-badge">{{ $progressItemCount ?? 0 }}</span>
+    </a>
   </div>
   <!-- 商品 -->
   <div class="item-group">
     @foreach ($items as $item)
     <div class="item-group__row">
       <!-- 商品画像 -->
-      <a href="/item/{{ $item->id }}" class="item-group__img">
-        <img class="item-group__img-inner" src="{{ asset('storage/items/' . $item->item_img) }}" alt="商品画像" />
-      </a>
+      <!-- 取引中の商品タブからはチャット画面へ遷移 -->
+      @if(request('page') === 'progress')
+        <a href="/chat/{{ $item->assessment_chat_id }}" class="item-group__img">
+          <img class="item-group__img-inner" src="{{ asset('storage/items/' . $item->item_img) }}" alt="商品画像" />
+          @if(!empty($item->unread_count))
+            <span class="badge">{{ $item->unread_count }}</span>
+          @endif
+        </a>
+      @else
+        <a href="/item/{{ $item->id }}" class="item-group__img">
+          <img class="item-group__img-inner" src="{{ asset('storage/items/' . $item->item_img) }}" alt="商品画像" />
+        </a>
+      @endif
       <!-- 商品名 -->
       <div class="item-group__name-sold">
         <p class="item-group__name">{{ $item->name }}</p>

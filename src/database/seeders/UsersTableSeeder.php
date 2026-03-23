@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Carbon;
 
 class UsersTableSeeder extends Seeder
 {
@@ -18,21 +20,35 @@ class UsersTableSeeder extends Seeder
   public function run()
   {
     $param = [
-    'name' => 'test',
-    'email' => 'test@gmail.com',
-    'password' => '123456789',
-    'postcode' => '1111111',
-    'address' => '東京都品川区11',
-    'building' => 'テストビルディング',
+      'name' => 'test1',
+      'email' => 'test1@gmail.com',
+      'password' => Hash::make('password'),
+      'postcode' => '111-1111',
+      'address' => '東京都品川区11',
+      'building' => 'テストビルディング1',
+      'email_verified_at' => Carbon::now(),
     ];
     DB::table('users')->insert($param);
+
     $param = [
-    'name' => 'test1',
-    'email' => 'test1@gmail.com',
-    'password' => '987654321',
-    'postcode' => '2222222',
-    'address' => '東京都品川区22',
-    'building' => 'ビルディング',
+      'name' => 'test2',
+      'email' => 'test2@gmail.com',
+      'password' => Hash::make('password'),
+      'postcode' => '222-2222',
+      'address' => '東京都品川区22',
+      'building' => 'テストビルディング2',
+      'email_verified_at' => Carbon::now(),
+    ];
+    DB::table('users')->insert($param);
+
+    $param = [
+      'name' => 'test3',
+      'email' => 'test3@gmail.com',
+      'password' => Hash::make('password'),
+      'postcode' => '333-3333',
+      'address' => '東京都品川区33',
+      'building' => 'テストビルディング3',
+      'email_verified_at' => Carbon::now(),
     ];
     DB::table('users')->insert($param);
   }

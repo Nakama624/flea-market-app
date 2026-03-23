@@ -72,7 +72,7 @@ class ItemsTableSeeder extends Seeder
       'description' => '高音質のレコーディング用マイク',
       'item_img' => 'd_Music+Mic+4632231.jpg',
       'condition_id' => '2',
-      'sell_user_id' => '1',
+      'sell_user_id' => '2',
     ];
     DB::table('items')->insert($param);
     $param = [
@@ -82,7 +82,7 @@ class ItemsTableSeeder extends Seeder
       'description' => 'おしゃれなショルダーバッグ',
       'item_img' => 'd_Purse+fashion+pocket.jpg',
       'condition_id' => '3',
-      'sell_user_id' => '1',
+      'sell_user_id' => '2',
     ];
     DB::table('items')->insert($param);
     $param = [
@@ -102,7 +102,7 @@ class ItemsTableSeeder extends Seeder
       'description' => '使いやすいタンブラー',
       'item_img' => 'd_Waitress+with+Coffee+Grinder.jpg',
       'condition_id' => '1',
-      'sell_user_id' => '1',
+      'sell_user_id' => '2',
     ];
     DB::table('items')->insert($param);
     $param = [

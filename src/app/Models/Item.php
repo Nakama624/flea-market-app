@@ -44,4 +44,8 @@ class Item extends Model
     return $this->belongsToMany(User::class, 'likes', 'item_id', 'user_id')
       ->withTimestamps();
   }
+
+  public function tradingItem() {
+    return $this->hasMany(AssessmentChat::class);
+  }
 }
