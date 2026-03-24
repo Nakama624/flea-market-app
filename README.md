@@ -13,9 +13,11 @@
 - `php artisan key:generate`
 - `php artisan migrate`
 - `php artisan db:seed`
+- `php artisan storage:link`
 
 ## mailhog
 ### 環境設定
+http://localhost:8025/
 > `.env` ファイルを以下のように修正。
 > ```diff
 > -　MAIL_FROM_ADDRESS=null

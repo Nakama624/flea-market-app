@@ -22,12 +22,18 @@ class ChatController extends Controller
       ->first();
 
     $tradingUser = null;
+    $tradingUserImg = null;
 
     if ($assessmentChat) {
       if ($assessmentChat->seller_user_id === $user->id) {
+        // 自分が出品者 → 相手は購入者
         $tradingUser = $assessmentChat->buyer->name ?? null;
+        $tradingUserImg = $assessmentChat->buyer->profile_img ?? null;
+
       } elseif ($assessmentChat->buyer_user_id === $user->id) {
+        // 自分が購入者 → 相手は出品者
         $tradingUser = $assessmentChat->seller->name ?? null;
+        $tradingUserImg = $assessmentChat->seller->profile_img ?? null;
       }
     }
 
@@ -55,7 +61,8 @@ class ChatController extends Controller
         'progressItems',
         'chats',
         'shouldOpenAssessmentModal',
-        'tradingUser'
+        'tradingUser',
+        'tradingUserImg'
       ));
     }
 
@@ -96,7 +103,8 @@ class ChatController extends Controller
       'progressItems',
       'chats',
       'shouldOpenAssessmentModal',
-      'tradingUser'
+      'tradingUser',
+      'tradingUserImg'
     ));
   }
 

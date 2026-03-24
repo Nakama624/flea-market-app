@@ -21,11 +21,13 @@
     <!-- 一段目 -->
     <div class="right-row">
       <div class="profile-thumb">
-      @if ($assessmentChat && $assessmentChat->seller && $assessmentChat->seller->profile_img)
-        <img id="profilePreview" src="{{ asset('storage/profiles/' . $item->seller->profile_img) }}" alt="" />
-      @else
-        <img id="profilePreview" src="" alt="" />
-      @endif
+        @if (!empty($tradingUserImg))
+          <img 
+            id="profilePreview"
+            src="{{ asset('storage/profiles/' . $tradingUserImg) }}"
+            alt=""
+          />
+        @endif
       </div>
       <!-- ユーザー名 -->
       <span class="profile-name">
