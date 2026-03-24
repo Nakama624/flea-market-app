@@ -29,8 +29,7 @@
       </div>
       <!-- ユーザー名 -->
       <span class="profile-name">
-        <!-- ★要修正 -->
-        「{{ $item->seller->name }} 」さんとの取引画面
+        「{{ $tradingUser }} 」さんとの取引画面
       </span>
       <!-- 購入者の場合のみボタンを表示する -->
       @if($assessmentChat && Auth::id() === $assessmentChat->buyer_user_id)
@@ -136,7 +135,8 @@
       <textarea
         name="message"
         class="send-message__input"
-        placeholder="取引メッセージを記入してください">{{ old('message') }}</textarea>        <div class="form__error">
+        placeholder="取引メッセージを記入してください">{{ old('message') }}</textarea>
+        <div class="form__error">
           @error('message')
             {{ $message }}
           @enderror

@@ -15,74 +15,86 @@ class ChatController extends Controller
   public function show(Item $item){
     $user = Auth::user();
 
-    $assessmentChat = AssessmentChat::with(['item.seller', 'seller'])
-        ->where('item_id', $item->id)
-        ->first();
+    $assessmentChat = AssessmentChat::with(['item.seller', 'seller', 'buyer'])
+      ->where('item_id', $item->id)
+      ->first();
+
+    $tradingUser = null;
+
+    if ($assessmentChat) {
+      if ($assessmentChat->seller_user_id === $user->id) {
+        $tradingUser = $assessmentChat->buyer->name ?? null;
+      } elseif ($assessmentChat->buyer_user_id === $user->id) {
+        $tradingUser = $assessmentChat->seller->name ?? null;
+      }
+    }
 
     // assessmentChat がDBにあるものだけサイドバーに表示
     $progressItems = AssessmentChat::where(function ($query) use ($user) {
-            $query->where('seller_user_id', $user->id)
-                  ->orWhere('buyer_user_id', $user->id);
-        })
-        ->with(['item', 'chats'])
-        ->get()
-        ->sortByDesc(function ($chat) {
-            return $chat->chats->max('created_at') ?? $chat->created_at;
-        });
+        $query->where('seller_user_id', $user->id)
+          ->orWhere('buyer_user_id', $user->id);
+      })
+      ->with(['item', 'chats'])
+      ->get()
+      ->sortByDesc(function ($chat) {
+        return $chat->chats->max('created_at') ?? $chat->created_at;
+      });
 
     $shouldOpenAssessmentModal = false;
 
     // assessmentChat がまだ無いなら、チャット一覧は空で表示
     if (!$assessmentChat) {
-        $chats = collect();
+      $chats = collect();
 
-        return view('chat', compact(
-            'item',
-            'user',
-            'assessmentChat',
-            'progressItems',
-            'chats',
-            'shouldOpenAssessmentModal'
-        ));
-    }
-
-    if ($assessmentChat->seller_user_id !== $user->id && $assessmentChat->buyer_user_id !== $user->id) {
-        abort(403);
-    }
-
-    $chats = $assessmentChat->chats()
-        ->with('sender')
-        ->oldest()
-        ->get();
-
-    $assessmentChat->chats()
-        ->where('sender_user_id', '!=', $user->id)
-        ->whereNull('read_at')
-        ->update([
-            'read_at' => now()
-        ]);
-
-    if ($assessmentChat->seller_user_id === $user->id) {
-        $hasSentAssessment = $assessmentChat->assessments()
-            ->where('from_user_id', $user->id)
-            ->exists();
-
-        $hasReceivedAssessment = $assessmentChat->assessments()
-            ->where('to_user_id', $user->id)
-            ->exists();
-
-        if (!$hasSentAssessment && $hasReceivedAssessment) {
-            $shouldOpenAssessmentModal = true;
-        }
-    }
-
-    return view('chat', compact(
+      return view('chat', compact(
         'item',
         'user',
         'assessmentChat',
         'progressItems',
         'chats',
-        'shouldOpenAssessmentModal'
+        'shouldOpenAssessmentModal',
+        'tradingUser'
+      ));
+    }
+
+    if ($assessmentChat->seller_user_id !== $user->id && $assessmentChat->buyer_user_id !== $user->id) {
+      abort(403);
+    }
+
+    $chats = $assessmentChat->chats()
+      ->with('sender')
+      ->oldest()
+      ->get();
+
+    $assessmentChat->chats()
+      ->where('sender_user_id', '!=', $user->id)
+      ->whereNull('read_at')
+      ->update([
+          'read_at' => now()
+      ]);
+
+    if ($assessmentChat->seller_user_id === $user->id) {
+      $hasSentAssessment = $assessmentChat->assessments()
+        ->where('from_user_id', $user->id)
+        ->exists();
+
+      $hasReceivedAssessment = $assessmentChat->assessments()
+        ->where('to_user_id', $user->id)
+        ->exists();
+
+      if (!$hasSentAssessment && $hasReceivedAssessment) {
+        $shouldOpenAssessmentModal = true;
+      }
+    }
+
+    return view('chat', compact(
+      'item',
+      'user',
+      'assessmentChat',
+      'progressItems',
+      'chats',
+      'shouldOpenAssessmentModal',
+      'tradingUser'
     ));
   }
 
@@ -106,7 +118,7 @@ class ChatController extends Controller
       if (! $assessmentChat) {
           $assessmentChat = AssessmentChat::create([
               'item_id' => $item->id,
-              'seller_user_id' => $item->sell_user_id, // ★修正: sell_user_id ではなく seller_user_id を確認
+              'seller_user_id' => $item->sell_user_id,
               'buyer_user_id' => $user->id,
               'status' => '取引中',
               'last_chat_at' => now(),
@@ -188,14 +200,14 @@ class ChatController extends Controller
   public function update(UpdateMessageRequest $request, Item $item){
     $chat = Chat::findOrFail($request->id);
 
-    // ★修正: 自分のメッセージだけ編集できるようにする
+    // 自分のメッセージだけ編集できるように
     if ($chat->sender_user_id !== Auth::id()) {
         return redirect("/item/{$item->id}/chat");
     }
 
     $chat->update([
-        'chat' => $request->chat,
-        'edited_at' => now(), // ★修正: 編集日時も更新
+      'chat' => $request->chat,
+      'edited_at' => now(), // 編集日時も更新
     ]);
 
     return redirect('/chat/' . $item->id);

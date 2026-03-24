@@ -202,9 +202,10 @@
 .send-message__input{
   height: 40px;
   color: #5F5F5F;
-  padding-left: 10px;
+  padding: 8px 10px;
   border-radius: 4px;
   resize: none;
+  align-items: center;
 }
 
 .message-validate{
@@ -212,9 +213,7 @@
   width: 80%;
 }
 
-
 .img-btn {
-  /* padding: 3px 3px; */
   font-size: 14px;
   border: 2px solid #ff5555;
   color: #ff5555;
@@ -276,7 +275,7 @@
 .modal-content {
   position: relative;
   width: 300px;
-  height:250px;
+  height:230px;
   background: #FDFCE6;
   border: 1px solid #8f8f8f;
   border-radius: 4px;
@@ -343,10 +342,6 @@
   cursor: pointer;
   line-height: 1.2;
 }
-
-/* .modal-content button[type="submit"]:hover {
-  opacity: 0.9;
-} */
 
 .modal-close-btn {
   position: absolute;
