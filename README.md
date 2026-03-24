@@ -132,3 +132,4 @@
 - （protest機能）チャット：（例）http://localhost/chat/7(←item_idが入ります)
 
 # protest_flea-market-app
+# protest_flea-market-app
