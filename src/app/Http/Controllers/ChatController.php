@@ -9,6 +9,8 @@ use App\Models\AssessmentChat;
 use App\Models\Chat;
 use App\Http\Requests\MessageRequest;
 use App\Http\Requests\UpdateMessageRequest;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SellerCompletedNotification;
 
 class ChatController extends Controller
 {
@@ -173,10 +175,12 @@ class ChatController extends Controller
           'score' => $score
         ]);
 
-
-
       } elseif ($user->id === $assessmentChat->buyer_user_id) {
         $assessmentChat->buyer_completed_at = now();
+        $assessmentChat->mail_sent_at = now();
+
+        Mail::to($assessmentChat->seller->email)
+                ->send(new SellerCompletedNotification($assessmentChat));
 
         // assessmentのカラムを作成
         $assessmentChat->assessments()->create([

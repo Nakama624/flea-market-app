@@ -78,12 +78,12 @@
                   @method('PATCH')
                   <input type="hidden" name="id" value="{{ $chat->id }}">
 
-                  <input type="text" name="chat" value="{{ old('chat', $chat->chat) }}" class="edit-input">
                   <div class="form__error">
                     @error('chat')
                       {{ $message }}
                     @enderror
                   </div>
+                  <input type="text" name="chat" value="{{ old('chat', $chat->chat) }}" class="edit-input">
 
                   <button type="submit" class="update">更新</button>
                 </form>
@@ -132,32 +132,34 @@
     <form action="/item/{{$item->id}}/chat" method="post" class="send-message" enctype="multipart/form-data">
       @csrf
       <div class="message-validate">
-      <textarea
-        name="message"
-        class="send-message__input"
-        placeholder="取引メッセージを記入してください">{{ old('message') }}</textarea>
         <div class="form__error">
           @error('message')
             {{ $message }}
           @enderror
         </div>
+        <textarea
+          name="message"
+          class="send-message__input"
+          placeholder="取引メッセージを記入してください">{{ old('message') }}</textarea>
       </div>
+      <div class="img-select">
+        <div class="form__error--img">
+          @error('item_img')
+            {{ $message }}
+          @enderror
+          <label for="item_img" class="img-btn">
+            画像を選択する
+          </label>
+        </div>
 
-      <label for="item_img" class="img-btn">
-        画像を選択する
-      </label>
-      <!-- 画像が選択されたらすぐに表示 -->
-      <input id="item_img" type="file" name="item_img" accept="image/*" class="item-file">
-      <div class="form__error">
-        @error('item_img')
-          {{ $message }}
-        @enderror
+        <!-- 画像が選択されたらすぐに表示 -->
+        <input id="item_img" type="file" name="item_img" accept="image/*" class="item-file">
+
+        <!-- 送信アイコン -->
+        <button type="submit" class="send-message__btn">
+          <img src="{{ asset('images/send_message.svg') }}" alt="send_message" class="send-message__icon">
+        </button>
       </div>
-
-      <!-- 送信アイコン -->
-      <button type="submit" class="send-message__btn">
-        <img src="{{ asset('images/send_message.svg') }}" alt="send_message" class="send-message__icon">
-      </button>
     </form>
   </div>
 </div>

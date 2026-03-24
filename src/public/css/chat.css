@@ -195,7 +195,6 @@
   margin: 20px auto;
   display: flex;
   padding-left: 15px;
-  gap: 10px;
   width: 100%;
 }
 
@@ -205,6 +204,7 @@
   padding: 8px 10px;
   border-radius: 4px;
   resize: none;
+  display: flex;
   align-items: center;
 }
 
@@ -213,13 +213,27 @@
   width: 80%;
 }
 
+.img-select{
+  display: flex;
+  width: 300px;
+}
+
+.form__error--img {
+  color: red;
+  font-size: 8px;
+  width: 150px;
+  /* display: flex; */
+  justify-content: center;
+}
+
+
 .img-btn {
   font-size: 14px;
   border: 2px solid #ff5555;
   color: #ff5555;
   border-radius: 4px;
   cursor: pointer;
-  margin-left: 10px;
+  margin-left: 20px;
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -375,5 +389,15 @@
 
   .payment-table{
     width: 50%;
+  }
+
+  .progress-item__name{
+    font-size: 12px;
+  }
+
+  .progress-item{
+    text-decoration: none;
+    height: 30px;
+    line-height: 30px;
   }
 }

@@ -125,12 +125,9 @@
 - 新規登録：http://localhost/register
 - マイページ：http://localhost/mypage
 - 商品一覧：http://localhost/
-- 出品（ログイン必須）http://localhost/sell
-- 商品詳細画面やユーザープロフィール画面は商品一覧やマイページから遷移
+- 出品：http://localhost/sell
+商品詳細画面やユーザープロフィール画面は商品一覧やマイページから遷移
 - phpMyAdmin：http://localhost:8080/
 
-- （protest機能）チャット：（例）http://localhost/chat/7(←item_idが入ります)
-
-# protest_flea-market-app
-# protest_flea-market-app
-# protest_flea-market-app
+- （protest機能）チャット：（例）http://localhost/chat/7
+　　最後はitem_idが入る
